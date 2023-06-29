@@ -13,6 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('/students', function () {
+    return view('students');
+});
+
+Route::get('/students/add', function () {
+    return view('students_add');
+});
+
+Route::get('/students/{id}', function () {
+    return view('student_edit');
+});
+
+Route::post('/students/add', function (Request $request) {
+    return view('students');
+});
+
+Route::post('/students/{id}', function (Request $request) {
+    return view('students');
+});
+
+Route::post('/students/{id}/delete', function (Request $request) {
+    return view('students');
 });
