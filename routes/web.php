@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,26 +19,19 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/students', function () {
-    return view('students');
-});
+Route::get('/students', [StudentController::class, 'index'])->name('students');
 
-Route::get('/students/add', function () {
-    return view('students_add');
-});
+Route::get('/students/add', [StudentController::class, 'add'])->name('add.student');
 
-Route::get('/students/{id}', function () {
-    return view('student_edit');
-});
+Route::get('/students/{id}', [StudentController::class, 'edit']);
 
-Route::post('/students/add', function (Request $request) {
-    return view('students');
-});
+Route::get('/students/delete/{id}', [StudentController::class, 'delete']);
 
-Route::post('/students/{id}', function (Request $request) {
-    return view('students');
-});
+Route::post('/students/add', [StudentController::class, 'save']);
 
-Route::post('/students/{id}/delete', function (Request $request) {
-    return view('students');
-});
+Route::post('/students/{id}', [StudentController::class, 'update']);
+
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
