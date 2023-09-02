@@ -31,7 +31,11 @@ Route::post('/students/add', [StudentController::class, 'save']);
 
 Route::post('/students/{id}', [StudentController::class, 'update']);
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function () { return redirect( route('home') ) ;});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
+Route::post('/logout', [App\Http\Controllers\DashboardController::class, 'logout'])->name('logout');
