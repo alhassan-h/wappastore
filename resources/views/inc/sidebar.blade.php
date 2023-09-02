@@ -18,7 +18,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/tables.html">
+          <a class="nav-link text-white " href="{{ route('dashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -27,7 +27,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/billing.html">
+          <a class="nav-link text-white " href="{{ route('dashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
@@ -36,7 +36,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-white " href="../pages/notifications.html">
+          <a class="nav-link text-white " href="{{ route('dashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">people</i>
             </div>
@@ -53,7 +53,7 @@
       <div class="mx-3 my-2">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white " href="../pages/profile.html">
+              <a class="nav-link text-white " href="{{ route('dashboard') }}">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">person</i>
                 </div>
@@ -61,7 +61,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white " href="../pages/sign-in.html">
+              <a class="nav-link text-white " href="{{ route('dashboard') }}">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">logout</i>
                 </div>
