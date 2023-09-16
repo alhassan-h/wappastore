@@ -11,7 +11,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
  
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $page_name=='dashboard'])" href="{{ route('dashboard') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='dashboard'])" href="{{ route('dashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -20,46 +20,51 @@
         </li>
         <li class="nav-item">
  
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $page_name=='products'])" href="{{ route('products') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='products'])" href="{{ route('products') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
-            <span class="nav-link-text ms-1">Products</span>
+            <span class="nav-link-text ms-1">@if(!Auth::user()->isAdmin())My @endif Products</span>
           </a>
         </li>
 
         <li class="nav-item">
  
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $page_name=='orders'])" href="{{ route('orders') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='orders'])" href="{{ route('orders') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">Orders</span>
+            <span class="nav-link-text ms-1">@if(!Auth::user()->isAdmin())My @endif Orders</span>
           </a>
         </li>
 
+        @if(Auth::user()->isAdmin())
         <li class="nav-item">
- 
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $page_name=='customers']) href="{{ route('customers') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='customers']) href="{{ route('customers') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">people</i>
             </div>
             <span class="nav-link-text ms-1">Customers</span>
           </a>
-        </li>        
+        </li>
+        @endif       
+
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3 my-2">
           <ul class="navbar-nav">
+            @if(!Auth::user()->isAdmin())
             <li class="nav-item">
-              <a class="nav-link text-white" href="{{ route('profile') }}">
+              <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='profile']) href="{{ route('profile') }}">
                 <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i class="material-icons opacity-10">person</i>
                 </div>
                 <span class="nav-link-text ms-1">Profile</span>
               </a>
             </li>
+            @endif
+
             <li class="nav-item">
               <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">

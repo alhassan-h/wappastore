@@ -1,6 +1,6 @@
 @extends('layouts.dash')
 
-@php($orders = $data['orders'])
+@php($products = $data['products'])
 
 @section('content')
 <div class="container-fluid py-4">
@@ -10,21 +10,20 @@
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">My Orders</h6>
+                            <h6 class="mb-0">My Products</h6>
                         </div>
                     </div>
                 </div>
-                <div class="card-body p-3">
+                <div class="card-body p-3 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">order id</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product category</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
                                 <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
@@ -44,9 +43,6 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-secondary">pending</span>
                                     </td>
                                     <td class="align-middle">
                                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Cancel order">

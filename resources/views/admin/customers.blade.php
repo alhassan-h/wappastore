@@ -2,6 +2,8 @@
 
 @section('content')
 
+@php($customers = $data['customers'])
+
 <div class="container-fluid py-4">
       <div class="row mb-4">
       <div class="col-12">
@@ -25,66 +27,39 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @forelse($customers as $customer)
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                            <img src="{{asset('assets/img/200x200.jpg')}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">John Michael</h6>
+                            <h6 class="mb-0 text-sm">{{ucwords($customer->name)}}</h6>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">07031846977</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ucwords($customer->phone)}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">john@gmail.com</p>
+                        <p class="text-xs font-weight-bold mb-0">{{strtolower($customer->email)}}</p>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">Kaduna-North, Kaduna State</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{ucwords($customer->address)}}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">12/09/23</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{date('jS, M Y',strtotime($customer->created_at))}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View user">
+                        <a href="{{url('customers/'.$customer->id)}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View customer">
                           View
                         </a>
                       </td>
                     </tr>
-
-                    <tr>
-                      <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Khadija Sani</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">08073462738</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">kdj@gmail.com</p>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">Kaduna-South, Kaduna State</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">12/10/23</span>
-                      </td>
-                      <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View user">
-                          View
-                        </a>
-                      </td>
-                    </tr>
-
+                    @empty
+                    <span class="text-secondary text-xs font-weight-bold">No Customers</span>
+                    @endforelse
                   </tbody>
                 </table>
               </div>

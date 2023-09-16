@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Customers;
 
 class DashboardController extends Controller
 {
@@ -23,21 +26,23 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function profile()
+    public function profile(Request $request)
     {
-        $page_name = 'profile';
-        return view('customer.profile', compact('page_name'));
-    }
- 
-    /**
-     * Show a customer's orders.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function myorders(Request $request)
-    {
-        $page_name = 'myorders';
-        return view('customer.orders', compact('page_name'));
+        $user = $request->user();
+
+        if( $user->usertype == 'admin'){
+            return redirect( route('dashboard') );
+        }
+
+        $data = [
+            'page_name' => 'profile',
+            'customer' => DB::table('users')
+                ->join('customers', 'users.id', 'customers.user_id')
+                ->where('users.id', $user->id)
+                ->get(),
+        ];
+
+        return view('customer.profile', compact('data'));
     }
  
     /**
@@ -45,21 +50,84 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $page_name = 'dashboard';
-        return view('admin.dashboard', compact('page_name'));
+        
+        if( $request->user()->usertype == 'admin'){
+            $data = [
+                'page_name' => 'dashboard',
+                'analytics' => [],
+            ];
+            return view('admin.dashboard', compact('data'));
+        }
+        
+        $data = [
+            'page_name' => 'dashboard',
+            'analytics' => [],
+        ];
+        return view('customer.dashboard', compact('data'));
     }
     
     /**
-     * Show the customers' products.
+     * Show the store products.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function products()
+    public function products(Request $request)
     {
-        $page_name = 'products';
-        return view('admin.products', compact('page_name'));
+        $user = $request->user();
+
+        if( $user->usertype == 'admin'){
+            return $this->manageProducts();
+        }
+
+        return $this->customerProducts( $user->id );
+        
+    }
+    
+    /**
+     * Show the store products.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function manageProducts()
+    {
+        $data = [
+            'page_name' => 'products',
+            'products' => [],
+        ];
+        return view('admin.products', compact('data'));
+        
+    }
+
+    /**
+     * Show a customer's products.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function customerProducts( $id )
+    {
+        $data = [
+            'page_name' => 'products',
+            'products' => [],
+        ];
+
+        return view('customer.products', compact('data'));
+    }
+
+    /**
+     * Show the add products page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function addProduct()
+    {
+        $data = [
+            'page_name' => 'products',
+            'products' => [],
+        ];
+
+        return view('admin.product_add', compact('data'));
     }
 
     /**
@@ -67,10 +135,46 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function orders()
+    public function orders(Request $request)
     {
-        $page_name = 'orders';
-        return view('admin.orders', compact('page_name'));
+        $user = $request->user();
+
+        if( $user->usertype == 'admin'){
+            return $this->allOrders();
+        }
+
+        return $this->customerOrders( $user->id );
+    }
+
+    /**
+     * Show all orders.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function allOrders()
+    {
+        $data = [
+            'page_name' => 'orders',
+            'orders' => [],
+        ];
+        
+        return view('admin.orders', compact('data'));
+    }
+
+    /**
+     * Show a customer's orders.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    private function customerOrders( $id )
+    {
+
+        $data = [
+            'page_name' => 'orders',
+            'orders' => [],
+        ];
+
+        return view('customer.orders', compact('data'));
     }
     
     /**
@@ -80,9 +184,33 @@ class DashboardController extends Controller
      */
     public function customers()
     {
-        $page_name = 'customers';
-        return view('admin.customers', compact('page_name'));
+        $data = [
+            'page_name' => 'customers',
+            'customers' => DB::table('users')->join('customers', 'users.id', 'customers.user_id')
+            ->get(),
+        ];
+
+        return view('admin.customers', compact('data'));
     }
+
+    /* 
+    *********************************************************************
+        POSTS
+    
+    *********************************************************************
+    */
+
+    
+    /**
+     * Save a product.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function saveProduct(Request $request)
+    {
+        dd( $request->all() );        
+    }
+
 
     public function logout(Request $request): RedirectResponse
     {

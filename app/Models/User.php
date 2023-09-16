@@ -43,7 +43,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
     /**
      * Get the user as a customer.
      *
@@ -51,5 +50,14 @@ class User extends Authenticatable
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
+    }
+
+    /**
+     * Check admin uaer.
+     *
+     */
+    public function isAdmin(): bool
+    {
+        return strtolower($this->usertype) === 'admin';
     }
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -52,7 +55,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'size:11', 'unique:customers'],
+            'address' => ['required', 'string', 'max:255'],
+            'profile' => ['sometimes', 'required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
@@ -62,12 +68,49 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function createUser(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+ 
+    /**
+     * Create a new customer instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\Models\Customer
+     */
+    protected function createCustomer(array $data)
+    {
+        return Customer::create([
+            'user_id' => $data['user_id'],
+            'phone' => $data['phone'],
+            'profile' => $data['profile'],
+            'address' => $data['address'],
+        ]);
+    }
+
+    /**
+     * recieve submitted data.
+     *
+     * @param  array  $data
+     * @return \App\Models\User
+     */
+    protected function register(Request $request)
+    {
+        
+        $validatedData = $this->validator($request->all())->safe()->except(['_token']);
+        
+        $user = $this->createUser($validatedData);
+
+        $validatedData['user_id'] = $user->id;
+        $validatedData['profile'] = '';
+        
+        $customer = $this->createCustomer($validatedData);
+
+        return redirect( route('login') )->with('success', 'Registration Successful! Please Login.');
     }
 }

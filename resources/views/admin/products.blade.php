@@ -1,5 +1,7 @@
 @extends('layouts.dash')
 
+@php($products = $data['products'])
+
 @section('content')
 <div class="container-fluid py-4">
     <div class="row mb-4">
@@ -11,7 +13,7 @@
                             <h6 class="mb-0">Products' Filter</h6>
                         </div>
                         <div class="col-6 text-end">
-                            <a class="btn bg-gradient-success mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Product</a>
+                            <a class="btn bg-gradient-success mb-0" href="{{route('add.product')}}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Product</a>
                         </div>
                     </div>
                 </div>
