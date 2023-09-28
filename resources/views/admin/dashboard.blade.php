@@ -12,7 +12,7 @@
             </div>
             <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-            <h4 class="mb-0">$53k</h4>
+            <h4 class="mb-0">&#8358;53k</h4>
             </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -63,7 +63,7 @@
             </div>
             <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">Sales</p>
-            <h4 class="mb-0">$103,430</h4>
+            <h4 class="mb-0">&#8358;103,430</h4>
             </div>
         </div>
         <hr class="dark horizontal my-0">

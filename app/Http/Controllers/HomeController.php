@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Customer;
+use App\Models\Product;
+
 class HomeController extends Controller
 {
     /**
@@ -25,8 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $page_name = 'home';
-        return view('home', compact('page_name'));
+        $data = [
+            'page_name' => 'home'
+        ];
+        return view('home', compact('data'));
     }
 
     /**
@@ -36,8 +41,11 @@ class HomeController extends Controller
      */
     public function about()
     {
-        $page_name = 'about';
-        return view('about', compact('page_name'));
+        
+        $data = [
+            'page_name' => 'about'
+        ];
+        return view('about', compact('data'));
     }
 
     /**
@@ -47,8 +55,10 @@ class HomeController extends Controller
      */
     public function contact()
     {
-        $page_name = 'contact';
-        return view('contact', compact('page_name'));    
+        $data = [
+            'page_name' => 'contact'
+        ];
+        return view('contact', compact('data'));    
     }
 
     /**
@@ -56,8 +66,34 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function shop()
+    public function shop(Request $request)
     {
-        $page_name = 'shop';
-        return view('shop', compact('page_name'));    }
+
+        $validatedData = $request->validate([
+            'category' => 'sometimes|in:shirts,trousers',
+            'gender' => 'sometimes|in:boys,girls',
+            'color' => 'sometimes|in:black,white,red',
+        ]);
+
+        $conditions = [];
+
+        if (isset($validatedData['category'])) {
+            $conditions[] = ['category', $validatedData['category'] ];
+        }
+        if (isset($validatedData['gender'])) {
+            $conditions[] = ['gender', $validatedData['gender'] ];
+        }
+        if (isset($validatedData['color'])) {
+            $conditions[] = ['color', $validatedData['color'] ];
+        }
+
+        $products =  Product::where($conditions)->get();
+
+        $data = [
+            'page_name' => 'products',
+            'filters' => ($validatedData)?$validatedData:['all'],
+            'products' => $products,
+        ];
+        
+        return view('shop', compact('data'));    }
 }

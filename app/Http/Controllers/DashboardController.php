@@ -7,7 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Customers;
+use App\Models\Customer;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -94,8 +95,10 @@ class DashboardController extends Controller
     {
         $data = [
             'page_name' => 'products',
-            'products' => [],
+            'filters' => ['all'],
+            'products' => Product::get(),
         ];
+
         return view('admin.products', compact('data'));
         
     }
@@ -109,10 +112,55 @@ class DashboardController extends Controller
     {
         $data = [
             'page_name' => 'products',
-            'products' => [],
+            'products' => Product::where('id', 1)
+            ->get(),
         ];
 
         return view('customer.products', compact('data'));
+    }
+    
+    /**
+     * Show the store products (filter).
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function filterProducts(Request $request)
+    {
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'category' => 'sometimes|in:shirts,trousers',
+            'gender' => 'sometimes|in:boys,girls',
+            'color' => 'sometimes|in:black,white,red',
+        ]);
+
+        $conditions = [];
+
+        if (isset($validatedData['category'])) {
+            $conditions[] = ['category', $validatedData['category'] ];
+        }
+        if (isset($validatedData['gender'])) {
+            $conditions[] = ['gender', $validatedData['gender'] ];
+        }
+        if (isset($validatedData['color'])) {
+            $conditions[] = ['color', $validatedData['color'] ];
+        }
+
+        $products =  Product::where($conditions)->get();
+
+        $data = [
+            'page_name' => 'products',
+            'filters' => ($validatedData)?$validatedData:['all'],
+            'products' => $products,
+        ];
+        
+
+        if( $user->usertype == 'admin'){
+            return view('admin.products', compact('data'));
+        }
+
+        return view('customer.products', compact('data'));
+        
     }
 
     /**
