@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Order;
 
 class DashboardController extends Controller
 {
@@ -53,18 +55,24 @@ class DashboardController extends Controller
      */
     public function dashboard(Request $request)
     {
+        $user = $request->user();
         
-        if( $request->user()->usertype == 'admin'){
+        if( $user->isAdmin() ){
             $data = [
                 'page_name' => 'dashboard',
                 'analytics' => [],
             ];
             return view('admin.dashboard', compact('data'));
         }
+
+        $analytics = [
+            'products' => $user->customer->deliveredOrders()->count(),
+            'orders' => $user->customer->undeliveredOrders()->count(),
+        ];
         
         $data = [
             'page_name' => 'dashboard',
-            'analytics' => [],
+            'analytics' => $analytics,
         ];
         return view('customer.dashboard', compact('data'));
     }
@@ -82,7 +90,7 @@ class DashboardController extends Controller
             return $this->manageProducts();
         }
 
-        return $this->customerProducts( $user->id );
+        return $this->customerProducts( $user );
         
     }
     
@@ -108,12 +116,15 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    private function customerProducts( $id )
+    private function customerProducts( $user )
     {
+        $customer = $user->customer;
+
+        $products = $customer->deliveredOrders();
+
         $data = [
             'page_name' => 'products',
-            'products' => Product::where('id', 1)
-            ->get(),
+            'products' => $products,
         ];
 
         return view('customer.products', compact('data'));
@@ -127,6 +138,8 @@ class DashboardController extends Controller
     public function filterProducts(Request $request)
     {
         $user = $request->user();
+
+        // dd($request->all());
 
         $validatedData = $request->validate([
             'category' => 'sometimes|in:shirts,trousers',
@@ -148,13 +161,18 @@ class DashboardController extends Controller
 
         $products =  Product::where($conditions)->get();
 
+        $filters = [
+            'category' => (isset($validatedData['category']))?$validatedData['category']:'',
+            'gender' => (isset($validatedData['gender']))?$validatedData['gender']:'',
+            'color' => (isset($validatedData['color']))?$validatedData['color']:'',
+        ];
+
         $data = [
             'page_name' => 'products',
             'filters' => ($validatedData)?$validatedData:['all'],
             'products' => $products,
         ];
         
-
         if( $user->usertype == 'admin'){
             return view('admin.products', compact('data'));
         }
@@ -191,7 +209,7 @@ class DashboardController extends Controller
             return $this->allOrders();
         }
 
-        return $this->customerOrders( $user->id );
+        return $this->customerOrders( $user );
     }
 
     /**
@@ -201,9 +219,13 @@ class DashboardController extends Controller
      */
     private function allOrders()
     {
+        $orders = Order::all();
+
+        // dd($orders);
+
         $data = [
             'page_name' => 'orders',
-            'orders' => [],
+            'orders' => $orders,
         ];
         
         return view('admin.orders', compact('data'));
@@ -214,12 +236,16 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    private function customerOrders( $id )
+    private function customerOrders( $user )
     {
+
+        $customer = $user->customer;
+
+        $orders = $customer->undeliveredOrders();
 
         $data = [
             'page_name' => 'orders',
-            'orders' => [],
+            'orders' => $orders,
         ];
 
         return view('customer.orders', compact('data'));
@@ -240,6 +266,29 @@ class DashboardController extends Controller
 
         return view('admin.customers', compact('data'));
     }
+    
+    /**
+     * Show the customers.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function cart(Request $request)
+    {
+        $user = $request->user();
+
+        $customer = $user->customer;
+
+        $cart = $customer->cart;
+
+        // dd($cart);
+
+        $data = [
+            'page_name' => 'cart',
+            'cart' => $cart,
+        ];
+
+        return view('customer.cart', compact('data'));
+    }
 
     /* 
     *********************************************************************
@@ -250,16 +299,151 @@ class DashboardController extends Controller
 
     
     /**
-     * Save a product.
+     * add a product to cart.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return;
      */
-    public function saveProduct(Request $request)
+    public function addToCart(Request $request)
     {
-        dd( $request->all() );        
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'product_id' => ['required','numeric'],
+        ]);
+
+        $customer = $user->customer;
+      
+        $product_id = $validatedData['product_id'];
+        $quantity = 1;
+        
+        $product = Product::where('id', $product_id)->first();
+        $available_quantity = intval($product->quantity);
+
+        if( $available_quantity < $quantity ){
+            return redirect()->back()->with('error', 'Product quantity insufficient!');
+        }
+
+        if( $customer->hasInCart($product) ){
+            $cart_product = $customer->getFromCart($product);
+            $cart_product->increment('quantity');
+            
+            $new_quantity = $available_quantity - $quantity;
+            $product->update(['quantity' => $new_quantity]);
+
+        }else{
+            $new_quantity = $available_quantity - $quantity;
+            $product->update(['quantity' => $new_quantity]);
+    
+            $validatedData['customer_id'] = $customer->id;
+            $validatedData['quantity'] = $quantity;
+    
+            $cart = Cart::create($validatedData);
+        }
+        
+
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        
+    }
+
+    
+    /**
+     * add a product to cart.
+     *
+     * @return;
+     */
+    public function updateCart(Request $request)
+    {
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'cart_product_id' => ['required','numeric'],
+            'cart_product_quantity' => ['required','numeric'],
+        ]);
+        
+        $cart_product_id = $validatedData['cart_product_id'];
+        $cart_product_quantity = $validatedData['cart_product_quantity'];
+        
+        $cart_product = $user->customer->cart->where('id', $cart_product_id)->first();
+        $product = $cart_product->product;
+        $available_quantity = intval($product->quantity);
+        
+        // increment or decrement
+        $diff = intval($cart_product_quantity) - intval($cart_product->quantity);
+        
+        if( $available_quantity < $cart_product_quantity){
+            return redirect()->back()->with('error', 'Product quantity insufficient!');
+        }
+        
+        $new_quantity = $available_quantity - $diff;
+
+        // $total_price = intval($cart_product_quantity) * intval($product->$price);
+        $cart_product->update(['quantity' => $cart_product_quantity]);
+        $product->update(['quantity' => $new_quantity]);
+
+        return redirect()->back()->with('success', 'Product quantity updated successfully!');
+        
+    }
+
+    /**
+     * delete a product from cart.
+     *
+     * @return;
+     */
+    public function deleteCart(Request $request)
+    {
+        $user = $request->user();
+
+        $validatedData = $request->validate([
+            'cart_product_id' => ['required','numeric'],
+        ]);
+        
+        $cart_product_id = $validatedData['cart_product_id'];
+        
+        $cart_product = $user->customer->cart->where('id', $cart_product_id)->first();
+        $cart_product_quantity = $cart_product->quantity;
+        $product = $cart_product->product;
+        $available_quantity = intval($product->quantity);        
+        $new_quantity = $available_quantity + $cart_product_quantity;
+
+        $product->update(['quantity' => $new_quantity]);
+        $cart_product->delete();
+
+        return redirect()->back()->with('success', 'Product quantity updated successfully!');
+        
+    }
+
+    /**
+     * make order.
+     *
+     * @return;
+     */
+    public function checkout(Request $request)
+    {
+        $customer = $request->user()->customer;
+        $cart_products = $customer->cart;  
+        $validatedData = [];
+
+        // dd($cart_products);
+        foreach( $cart_products as $cart_product ){
+            $validatedData['product_id'] = $cart_product->product->id;
+            $validatedData['customer_id'] = $customer->id;
+            $quantity = intval($cart_product->quantity);
+            $paid_price = $quantity * $cart_product->product->price;
+            $validatedData['quantity'] = $quantity;
+            $validatedData['paid_price'] = $paid_price;
+
+            Order::create($validatedData);
+            $cart_product->delete();
+            // dd($validatedData);
+        }
+        
+        return redirect( route('orders') )->with('success', 'You have successfully placed an order!');
+        
     }
 
 
+
+    
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

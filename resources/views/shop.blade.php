@@ -11,6 +11,9 @@
                         <div class="col-6 d-flex align-items-center">
                             <h6 class="mb-0">Products' Filter</h6>
                         </div>
+                        <div class="col-6 text-end">
+                            <a class="btn bg-gradient-primary mb-0" href="{{route('cart')}}">Goto Cart</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body p-3">
@@ -106,14 +109,18 @@
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
                                 <p class="mb-0 font-weight-bold text-md">Quantity:</p>
-                                <span class="text-sm">{{ucwords($product->quantity)}}</span>
+                                <span class="text-sm">{{$product->quantity}}</span>
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
                                 <p class="mb-0 font-weight-bold text-md">Price:</p>
                                 <span class="text-sm">&#8358;{{number_format($product->price)}}</span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
-                                <a href="javascript:void()" class="btn btn-outline-success btn-sm mb-0">Buy Product</a>
+                                <form method="post" action="{{route('addto.cart')}}">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$product->id}}"/>
+                                    <button type="submit" class="btn btn-outline-success btn-sm mb-0">Add to Cartt</button>
+                                </form>
                             </div>
                         </div>
                     </div>

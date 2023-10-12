@@ -19,41 +19,39 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">order id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
-                                <th class="text-secondary opacity-7"></th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">order id</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse( $orders as $order )
                                 <tr>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">Shoe</p>
+                                        <p class="text-xs font-weight-bold mb-0">#{{sprintf('%05d',$order->id)}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">Sandal</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ucwords($order->product->name)}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold text-center  mb-0">2</p>
+                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <span class="">$2,000</span>
+                                        <span class="">&#8358; {{number_format($order->paid_price)}}</span>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y', strtotime($order->created_at))}}</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-secondary">pending</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Cancel order">
-                                        View
-                                        </a>
+                                        <span class="badge badge-sm bg-gradient-warning">{{ucfirst($order->status)}}</span>
                                     </td>
                                 </tr>
+                                @empty
+                                <h3 class="text-danger text-lg">No recent orders!</h3>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

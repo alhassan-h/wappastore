@@ -6,8 +6,72 @@
 <script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
 <script src="{{asset('assets/js/plugins/chartjs.min.js')}}"></script>
 
+<script src="{{asset('assets/css/plugins/snackbar.min.js')}}"></script>
+<script src="{{asset('assets/css/plugins/custom-snackbar.js')}}"></script>
+
+@if(Session::has('success'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('success')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#8dbf42',
+            pos: 'top-center'
+        });
+    </script>
+@endif
+
+@if(Session::has('warning'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('warning')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#e2a03f',
+            pos: 'top-center'
+        });
+    </script>
+@endif
+
+@if(Session::has('error'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('warning')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#e7515a',
+            pos: 'top-center'
+        });
+    </script>
+@endif
+
 @if(isset($data['page_name']))
 @switch($data['page_name'])
+    @case('cart')
+        <script src="https://js.paystack.co/v1/inline.js"></script>
+        <script>
+            // var paymentForm = document.getElementById('paymentForm');
+            // paymentForm.addEventListener('submit', payWithPaystack, false);
+            function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_a21e71e0b173773ef533d47d14d3ecc63351f6b3', // Replace with your public key
+                email: "{{Auth::user()->email}}",
+                amount: Number("{{$total_price}}") * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+                currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+                ref: Math.floor((Math.random() * 1000000000) + 1), // Replace with a reference you generated
+                callback: function(response) {
+                //this happens after the payment is completed successfully
+                var reference = response.reference;
+                window.location = "{{route('checkout.cart')}}"
+                // setTimeout(() => {window.location = "{{route('orders')}}"}, 10000)
+                // alert('Payment complete! Reference: ' + reference);
+                // Make an AJAX call to your server with the reference to verify the transaction
+                },
+                onClose: function() {
+                    alert('Transaction was not completed, window closed.');
+                },
+            });
+            handler.openIframe();
+            }
+        </script>
+        @break
     @case('dashboard')
         <script>
             var ctx  = document.getElementById("chart-bars").getContext("2d");

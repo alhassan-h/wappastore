@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model
+class Cart extends Model
 {
     use HasFactory;
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,26 +19,28 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'category',
-        'gender',
-        'color',
+        'customer_id',
+        'product_id',
         'quantity',
-        'price',
-        'image',
     ];
 
     /**
-     * Get the product in cart.
+     * Get the cart owner.
      *
      */
-    public function cart(): HasMany
+    public function customer(): BelongsTo
     {
-        return $this->hasMany(Cart::class);
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function inCart(): bool
+    /**
+     * Get the product.
+     *
+     */
+    public function product(): BelongsTo
     {
-        return ($this->cart)->count() != 0;
+        return $this->belongsTo(Product::class);
     }
+
+
 }

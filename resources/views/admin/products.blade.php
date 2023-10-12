@@ -1,6 +1,7 @@
 @extends('layouts.dash')
 
 @php($products = $data['products'])
+@php($filters = $data['filters'])
 
 @section('content')
 <div class="container-fluid py-4">
@@ -24,43 +25,43 @@
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Category</label>
                                 <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="me-3">
+                                    <div class="me-3 @if(isset($filters['category']) && $filters['category'] == 'shirts')is-filled is-focused @endif">
                                         <label for="category-shirts" class="me-2">Shirts</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(true) value="shirts" id="category-shirts" name="category">
+                                        <input class="form-check-input ms-auto" type="radio" value="shirts" id="category-shirts" name="category" @selected(isset($filters['category']) && $filters['category'] == 'shirts')>
                                     </div>
-                                    <div class="">
+                                    <div class="@if(isset($filters['category']) && $filters['category'] == 'trousers')is-filled is-focused @endif">
                                         <label for="category-trousers" class="me-2">Trousers</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(true) value="trousers" id="category-trousers" name="category">
+                                        <input class="form-check-input ms-auto" type="radio" value="trousers" id="category-trousers" name="category" @selected(isset($filters['category']) && $filters['category'] == 'trousers')>
                                     </div>
                                 </div>
                             </div>
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Gender</label>
                                 <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="me-3">
+                                    <div class="me-3 @if(isset($filters['gender']) && $filters['gender'] == 'boys')is-filled is-focused @endif">
                                         <label for="gender-boys" class="me-2">Boys</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(old('gender') == 'boys') value="boys" id="gender-boys" name="gender">
+                                        <input class="form-check-input ms-auto" type="radio" value="boys" id="gender-boys" name="gender" @selected(isset($filters['gender']) && $filters['gender'] == 'boys')>
                                     </div>
-                                    <div class="">
+                                    <div class="@if(isset($filters['gender']) && $filters['gender'] == 'girls')is-filled is-focused @endif">
                                         <label for="gender-girls" class="me-2">Girls</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(old('gender') == 'girls') value="girls" id="gender-girls" name="gender">
+                                        <input class="form-check-input ms-auto" type="radio" value="girls" id="gender-girls" name="gender" @selected(isset($filters['gender']) && $filters['gender'] == 'girls')>
                                     </div>
                                 </div>
                             </div>
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Color</label>
                                 <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="">
+                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'red')is-filled is-focused @endif">
                                         <label for="category-red" class="me-2">Red</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'red') value="red" id="category-red" name="color">
+                                        <input class="form-check-input ms-auto" type="radio" value="red" id="category-red" name="color" @selected(isset($filters['color']) && $filters['color'] == 'red')>
                                     </div>
-                                    <div class="mx-3">
+                                    <div class="mx-3 @if(isset($filters['color']) && $filters['color'] == 'black')is-filled is-focused @endif">
                                         <label for="color-black" class="me-2">Black</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'black') value="black" id="color-black" name="color">
+                                        <input class="form-check-input ms-auto" type="radio" value="black" id="color-black" name="color" @selected(isset($filters['color']) && $filters['color'] == 'black')>
                                     </div>
-                                    <div class="">
+                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'white')is-filled is-focused @endif">
                                         <label for="color-white" class="me-2">White</label>
-                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'white') value="white" id="color-white" name="color">
+                                        <input class="form-check-input ms-auto" type="radio" value="white" id="color-white" name="color" @selected(isset($filters['color']) && $filters['color'] == 'white')>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +119,29 @@
                             </div>
                             <div class="mt-2 d-flex align-items-center justify-content-between">
                                 <button type="button" class="btn btn-warning btn-sm mb-0">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm mb-0">Delete</button>
+                                <button type="button" class="btn btn-danger btn-sm mb-0"  data-toggle="modal" data-target="#reviewUpload-{{$product->id}}-Modal">Delete</button>
+                                <div class="modal fade" id="reviewUpload-{{$product->id}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$product->id}}-ModalLabel" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="reviewUpload-{{$product->id}}-ModalLabel">Document Review: Chapter</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="review-upload-form-{{$product->id}}" method="post" action="{{route('filter.products')}}" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="document_id" value="{{$product->id}}">
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-between">
+                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                <button form="review-upload-form-{{$product->id}}" type="submit" class="btn btn-primary">Review</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

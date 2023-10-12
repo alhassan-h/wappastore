@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Product extends Model
+class Order extends Model
 {
     use HasFactory;
 
@@ -18,26 +18,29 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'category',
-        'gender',
-        'color',
+        'customer_id',
+        'product_id',
         'quantity',
-        'price',
-        'image',
+        'paid_price',
     ];
 
     /**
-     * Get the product in cart.
+     * Get the order owner.
      *
      */
-    public function cart(): HasMany
+    public function customer(): BelongsTo
     {
-        return $this->hasMany(Cart::class);
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function inCart(): bool
+    /**
+     * Get the product.
+     *
+     */
+    public function product(): BelongsTo
     {
-        return ($this->cart)->count() != 0;
+        return $this->belongsTo(Product::class);
     }
+
+
 }

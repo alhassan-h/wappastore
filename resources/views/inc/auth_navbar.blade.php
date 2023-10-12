@@ -41,18 +41,20 @@
             @if (!Auth::check())
             <li class="nav-item">
                 <a class="nav-link me-2" href="{{ route('login') }}">
-                <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                Login
+                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+                    Login
                 </a>
             </li>
             @endif
-            @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link me-2 active" href="{{ route('register') }}">
-                <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                {{ __('Register') }}
-                </a>
-            </li>
+            @if (!Auth::check())
+                @if (Route::has('register'))
+                <li class="nav-item">
+                    <a class="nav-link me-2 active" href="{{ route('register') }}">
+                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
+                    {{ __('Register') }}
+                    </a>
+                </li>
+                @endif
             @endif
         </ul>
     </div>

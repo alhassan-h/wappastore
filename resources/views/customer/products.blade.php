@@ -19,37 +19,39 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product category</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
-                                <th class="text-secondary opacity-7"></th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">#</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse( $products as $product )
                                 <tr>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">Shoe</p>
+                                        <p class="text-xs font-weight-bold mb-0">#{{$loop->iteration}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">Sandal</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ucwords($product->product->name)}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold text-center  mb-0">2</p>
+                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$product->quantity}}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <span class="">$2,000</span>
+                                        <span class="">&#8358; {{number_format($product->paid_price)}}</span>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y', strtotime($product->created_at))}}</span>
                                     </td>
-                                    <td class="align-middle">
-                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Cancel order">
-                                        View
-                                        </a>
+                                    <td class="align-middle text-center text-sm">
+                                        <span class="badge badge-sm bg-gradient-success">{{ucfirst($product->status)}}</span>
                                     </td>
                                 </tr>
+                                @empty
+                                <h3 class="text-danger text-lg">No recent products!</h3>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

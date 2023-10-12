@@ -1,5 +1,7 @@
 @extends('layouts.dash')
 
+@php($analytics = $data['analytics'])
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -12,7 +14,7 @@
                 </div>
                 <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">My Products</p>
-                <h4 class="mb-0">10</h4>
+                <h4 class="mb-0">{{$analytics['products']}}</h4>
                 </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -30,7 +32,7 @@
                     </div>
                     <div class="text-end pt-1">
                     <p class="text-sm mb-0 text-capitalize">My Orders</p>
-                    <h4 class="mb-0">4</h4>
+                    <h4 class="mb-0">{{$analytics['orders']}}</h4>
                     </div>
                 </div>
                 <hr class="dark horizontal my-0">
