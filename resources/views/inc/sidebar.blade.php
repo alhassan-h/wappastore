@@ -3,7 +3,7 @@
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="{{ route('home') }}">
         <img src="{{ asset('assets/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold text-white">Wappa Store</span>
+        <span class="ms-1 font-weight-bold text-white">Wappah Store</span>
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -20,7 +20,7 @@
         </li>
         <li class="nav-item">
  
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='products'])" href="{{ route('products') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='products'])" href="@if(Auth::user()->isAdmin()) {{route('products')}} @else {{route('customer.products')}} @endif">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -30,7 +30,7 @@
 
         <li class="nav-item">
  
-          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='orders'])" href="{{ route('orders') }}">
+          <a @class(['nav-link', 'text-white','active bg-gradient-primary' => $data['page_name']=='orders'])" href="@if(Auth::user()->isAdmin()) {{route('orders')}} @else {{route('customer.orders')}} @endif">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>

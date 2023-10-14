@@ -118,30 +118,28 @@
                                 <span class="text-sm">&#8358;{{number_format($product->price)}}</span>
                             </div>
                             <div class="mt-2 d-flex align-items-center justify-content-between">
-                                <button type="button" class="btn btn-warning btn-sm mb-0">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm mb-0"  data-toggle="modal" data-target="#reviewUpload-{{$product->id}}-Modal">Delete</button>
-                                <div class="modal fade" id="reviewUpload-{{$product->id}}-Modal" tabindex="-1" role="dialog" aria-labelledby="reviewUpload-{{$product->id}}-ModalLabel" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="reviewUpload-{{$product->id}}-ModalLabel">Document Review: Chapter</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="review-upload-form-{{$product->id}}" method="post" action="{{route('filter.products')}}" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="hidden" name="document_id" value="{{$product->id}}">
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer d-flex justify-content-between">
-                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                                                <button form="review-upload-form-{{$product->id}}" type="submit" class="btn btn-primary">Review</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="">
+                                    <form id="" method="post" action="{{route('get.edit.product')}}">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <button type="submit" class="btn btn-warning btn-sm mb-0">Edit</button>
+                                    </form>
+                                </div>                                
+                                <button type="button" class="btn btn-danger btn-sm mb-0" id="remove-{{$product->id}}"  data-bs-toggle="dropdown" aria-expanded="false">Remove</button>
+                                <ul class="dropdown-menu  dropdown-menu-end  px-2 py-1 me-sm-n4" aria-labelledby="remove-{{$product->id}}"> 
+                                    <li class="">
+                                        <div class="py-5 px-2 text-center">
+                                            <h4 class="mb-2">Are You Sure?</h4>
+                                            <p class="mb-2 text-primary">You want to remove <br>the product from store</p>
+                                            <p class="mb-2 text-danger mb-3">You can't undo this action</p>
+                                            <form id="" method="post" action="{{route('remove.product')}}">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                <button type="submit" class="btn btn-danger btn-sm mb-0">Yes</button>
+                                            </form>
+                                        </div>  
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

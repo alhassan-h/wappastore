@@ -16,14 +16,6 @@
                 </div>
                 <div class="card-body p-3 my-3">
                     <div class="row">
-                        @if(Session::has('success'))
-                        <div class="alert alert-success alert-dismissible text-white" role="alert">
-                            <span class="text-sm">{{Session::get('success')}}</span>
-                            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        @endif
                         <form method="post" action="{{ route('save.product') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="input-group input-group-outline my-2">

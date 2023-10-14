@@ -9,6 +9,22 @@
 <script src="{{asset('assets/css/plugins/snackbar.min.js')}}"></script>
 <script src="{{asset('assets/css/plugins/custom-snackbar.js')}}"></script>
 
+<script>
+  
+</script>
+
+@if(Session::has('login'))
+    <script>
+        Snackbar.show({
+            text: "{{Session::get('login')}}",
+            actionTextColor: '#fff',
+            backgroundColor: '#8dbf42',
+            pos: 'top-right',
+            duration: 2000,
+        });
+    </script>
+@endif
+
 @if(Session::has('success'))
     <script>
         Snackbar.show({
@@ -34,7 +50,7 @@
 @if(Session::has('error'))
     <script>
         Snackbar.show({
-            text: "{{Session::get('warning')}}",
+            text: "{{Session::get('error')}}",
             actionTextColor: '#fff',
             backgroundColor: '#e7515a',
             pos: 'top-center'
@@ -73,96 +89,17 @@
         </script>
         @break
     @case('dashboard')
+        @if(isset($data['dashboard']) && $data['dashboard'] == 'admin')
         <script>
-            var ctx  = document.getElementById("chart-bars").getContext("2d");
-
-            new Chart(ctx, {
-                type: "bar",
-                data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
-                datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: [50, 20, 10, 22, 50, 10, 40],
-                    maxBarThickness: 6
-                }, ],
-                },
-                options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                    display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 500,
-                        beginAtZero: true,
-                        padding: 10,
-                        font: {
-                        size: 14,
-                        weight: 300,
-                        family: "Roboto",
-                        style: 'normal',
-                        lineHeight: 2
-                        },
-                        color: "#fff"
-                    },
-                    },
-                    x: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                        size: 14,
-                        weight: 300,
-                        family: "Roboto",
-                        style: 'normal',
-                        lineHeight: 2
-                        },
-                    }
-                    },
-                },
-                },
-            });
-
 
             var ctx2 = document.getElementById("chart-line").getContext("2d");
 
             new Chart(ctx2, {
                 type: "line",
                 data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Sales",
                     tension: 0,
                     borderWidth: 0,
                     pointRadius: 5,
@@ -173,7 +110,7 @@
                     borderWidth: 4,
                     backgroundColor: "transparent",
                     fill: true,
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+                    data: [{{$montly_sales_data}}],
                     maxBarThickness: 6
 
                 }],
@@ -243,9 +180,9 @@
             new Chart(ctx3, {
                 type: "line",
                 data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Orders",
                     tension: 0,
                     borderWidth: 0,
                     pointRadius: 5,
@@ -255,7 +192,7 @@
                     borderWidth: 4,
                     backgroundColor: "transparent",
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: [{{$montly_orders_data}}],
                     maxBarThickness: 6
 
                 }],
@@ -320,6 +257,7 @@
                 },
             });
         </script>
+        @endif
         @break
 @endswitch
 @endif

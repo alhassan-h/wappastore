@@ -18,7 +18,8 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name & profile</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">phone number</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">email address</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">address</th>
@@ -30,10 +31,13 @@
                     @forelse($customers as $customer)
                     <tr>
                       <td>
+                        <p class="text-xs font-weight-bold mb-0">{{$loop->iteration}}</p>
+                      </td>
+                      <td>
                         <div class="d-flex px-2 py-1">
-                          <div>
+                          {{--<div>
                             <img src="{{asset('assets/img/200x200.jpg')}}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                          </div>
+                          </div>--}}
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm">{{ucwords($customer->name)}}</h6>
                           </div>
@@ -52,7 +56,7 @@
                         <span class="text-secondary text-xs font-weight-bold">{{date('jS, M Y',strtotime($customer->created_at))}}</span>
                       </td>
                       <td class="align-middle">
-                        <a href="{{url('customers/'.$customer->id)}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View customer">
+                        <a href='{{url("admin/customers/$customer->id")}}' class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View customer">
                           View
                         </a>
                       </td>

@@ -12,5 +12,6 @@
   <link id="pagestyle" href="{{asset('assets/css/material-dashboard.css?v=3.1.0') }}" rel="stylesheet" />
   <link href="{{asset('assets/css/custom-modal.css') }}" rel="stylesheet" />
   <link href="{{--asset('assets/css/bootstrap.min.css') --}}" rel="stylesheet" />
+  <link href="{{asset('assets/css/styles.css')}}" rel="stylesheet" />
 
   <link href="{{ asset('assets/css/plugins/snackbar.min.css') }}" rel="stylesheet" type="text/css" />

@@ -28,15 +28,6 @@
                             <div class="col-md-8 d-flex align-items-center">
                                 <h6 class="mb-0">Profile Information</h6>
                             </div>
-                            <div class="col-md-4 text-end">
-                                <a href="javascript:void();" onclick="event.preventDefault(); document.getElementById('edit-profile-form').submit();">
-                                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit Profile" data-bs-original-title="Edit Profile"></i>
-                                </a>
-                                <form id="edit-profile-form" action="{{route('get.edit.profile')}}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="customer_id" value="{{$customer->id}}">
-                                </form>
-                            </div>
                         </div>
                         <div class="card-body p-3">
                             <hr class="horizontal gray-light my-4">
@@ -46,9 +37,9 @@
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{strtolower($customer->email)}}</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; {{ucwords($customer->address)}}</li>
                             </ul>
-                            <div class="mt-5">
-                                <a href="{{route('dashboard')}}" class="btn btn-primary">Back</a>
-                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <a href="{{route('customers')}}" class="btn btn-primary">Back</a>
                         </div>
                     </div>
                 </div>

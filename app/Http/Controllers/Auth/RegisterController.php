@@ -45,6 +45,22 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the register page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+
+    public function showRegistrationForm()
+    {
+
+        $data = [
+            'page_name' => 'register',
+        ];
+
+        return view('auth.register', compact('data'));
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -57,7 +73,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'size:11', 'unique:customers'],
             'address' => ['required', 'string', 'max:255'],
-            'profile' => ['sometimes', 'required', 'string', 'max:255'],
+            'profile' => ['sometimes', 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'],
             'password' => ['required', 'string', 'min:8'],
         ]);
     }

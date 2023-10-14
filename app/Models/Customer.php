@@ -20,7 +20,7 @@ class Customer extends Model
     protected $fillable = [
         'user_id',
         'phone',
-        'profile',
+        // 'profile',
         'address',
     ];
 
@@ -75,5 +75,26 @@ class Customer extends Model
     public function undeliveredOrders( )
     {
         return $this->order->where('status', 'undelivered');
+    }
+
+    public function getName()
+    {
+        return $this->user->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->user->email;
+    }
+
+    public static function getTotalCustomers(): int
+    {
+        return Customer::get()->count();
+    }
+
+    public static function getTodayCustomers(): int
+    {
+        return Customer::where('created_at', 'like', date('Y-m-d')."%")
+            ->get()->count();
     }
 }

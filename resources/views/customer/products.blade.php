@@ -31,7 +31,7 @@
                                 @forelse( $products as $product )
                                 <tr>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">#{{$loop->iteration}}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{$loop->iteration}}</p>
                                     </td>
                                     <td>
                                         <p class="text-xs font-weight-bold mb-0">{{ucwords($product->product->name)}}</p>

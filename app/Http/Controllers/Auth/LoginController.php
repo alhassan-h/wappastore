@@ -45,6 +45,22 @@ class LoginController extends Controller
     }
 
     /**
+     * Show the login page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+  
+    public function showLoginForm()
+    {
+
+        $data = [
+            'page_name' => 'login',
+        ];
+
+        return view('auth.login', compact('data'));
+    }
+
+    /**
      * Handle an authentication attempt.
      *
      * @return void
@@ -61,7 +77,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard')->with('login', 'Login successfully!');
         }
  
         return back()->withErrors([

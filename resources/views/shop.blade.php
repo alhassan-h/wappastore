@@ -1,5 +1,12 @@
 @extends('layouts.auth')
 
+@php
+
+$isLoggedIn = (Auth::check())?true:false;
+$isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
+
+@endphp
+
 @section('content')
 <div class="page-header align-items-start min-vh-100 pt-5">
     <div class="container py-5">
@@ -11,14 +18,16 @@
                         <div class="col-6 d-flex align-items-center">
                             <h6 class="mb-0">Products' Filter</h6>
                         </div>
+                        @if(!$isLoggedIn || $isCustomer)
                         <div class="col-6 text-end">
                             <a class="btn bg-gradient-primary mb-0" href="{{route('cart')}}">Goto Cart</a>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body p-3">
                     <div class="row">
-                        <form class="" method="post" action="{{route('shop')}}">
+                        <form class="" method="post" action="{{route('filter.shop')}}">
                             @csrf
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Category</label>
@@ -116,11 +125,15 @@
                                 <span class="text-sm">&#8358;{{number_format($product->price)}}</span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
-                                <form method="post" action="{{route('addto.cart')}}">
+                            @if($product->quantity < 1)   
+                                <span class="btn btn-outline-danger w-100 btn-sm mb-0">OUT OF STOCK !</span>
+                            @elseif(!$isLoggedIn || $isCustomer)   
+                                <form method="post" class="w-100" action="{{route('addto.cart')}}">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{$product->id}}"/>
-                                    <button type="submit" class="btn btn-outline-success btn-sm mb-0">Add to Cartt</button>
+                                    <button type="submit" class="btn btn-outline-success w-100 btn-sm mb-0">Add to Cart</button>
                                 </form>
+                            @endif
                             </div>
                         </div>
                     </div>

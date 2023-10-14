@@ -1,0 +1,98 @@
+.list-ico {
+    line-height: 2;
+}
+
+.socials ul, .list-ico {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+ol, ul {
+    padding-left: 2rem;
+}
+
+.list-ico span {
+    color: #e91e63;
+    margin-right: 10px;
+}
+
+.socials {
+    padding: 1.5rem 0;
+}
+
+.socials ul, .list-ico {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+ol, ul {
+    padding-left: 2rem;
+}
+
+.socials ul li {
+    display: inline-block;
+}
+
+a {
+    color: #1e1e1e;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+}
+a {
+    color: #e91e63;
+}
+
+.socials .ico-circle {
+    height: 40px;
+    width: 40px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    line-height: 1.6;
+    margin: 0 15px 0 0;
+    box-shadow: 0 0 0 3px #e91e63;
+    transition: all 500ms ease;
+    padding-top: 5px;
+}
+.socials .ico-circle:hover {
+    background-color: #e91e63;
+    color: #fff;
+    box-shadow: 0 0 0 3px #cf3065;
+    transition: all 500ms ease;
+}
+.ico-circle {
+    height: 100px;
+    width: 100px;
+    font-size: 2rem;
+    border-radius: 50%;
+    line-height: 1.55;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 0 0 10px #e91e63;
+    display: block;
+}
+
+.title-left:before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background-color: #e91e63;
+    width: 100px;
+    bottom: -5px;
+    padding: 0;
+}
+
+.fs-sm {
+    font-size: .5rem !important;
+  }
+
+  .min-vh-10 {
+    min-height: 10vh !important;
+  }

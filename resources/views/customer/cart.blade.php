@@ -48,7 +48,7 @@
                                                         <td>
                                                             <div class="d-flex flex-column justify-content-center">
                                                                 <h6 class="mb-4">{{ucwords($crt->product->name)}}</h6>
-                                                                <form method="post" action="{{route('updateCart.cart')}}">
+                                                                <form method="post" action="{{route('updatecart.cart')}}">
                                                                     @csrf
                                                                     <input type="hidden" name="cart_product_id" value="{{$crt->id}}"/>
                                                                     <table class="mb-4 w-100">
@@ -86,7 +86,7 @@
                                                                         </tr>
                                                                     </table>
                                                                 </form>
-                                                                <form method="post" action="{{route('deleteCart.cart')}}">
+                                                                <form method="post" action="{{route('deletecart.cart')}}">
                                                                     @csrf
                                                                     <input type="hidden" name="cart_product_id" value="{{$crt->id}}"/>
                                                                     <button type="submit" class="btn btn-sm btn-danger mb-4">Remove Product</button>

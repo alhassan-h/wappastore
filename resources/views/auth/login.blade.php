@@ -13,11 +13,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if (Session::has('success'))
-                    <div class="alert alert-success p-2" role="alert" style="height: fit-content">
-                        <p class="m-0" style="color: white">{{Session::get('success')}}</p>
-                    </div>
-                    @endif
                     <form role="form" class="text-start" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="input-group input-group-outline my-3">
