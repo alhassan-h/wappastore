@@ -67,8 +67,13 @@
                         </form>
                         </td>
                       </tr>
-                    @empty
-                    @endforelse
+                      @empty
+                      <tr>
+                        <td>
+                          <span class="text-secondary text-xs font-weight-bold text-danger">No New Orders!</span>
+                        </td>
+                      </tr>
+                      @endforelse
                   </tbody>
                 </table>
               </div>
@@ -130,8 +135,13 @@
                           <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y H:m A', strtotime($order->updated_at))}}</span>
                         </td>
                       </tr>
-                    @empty
-                    @endforelse
+                      @empty
+                      <tr>
+                        <td>
+                          <span class="text-secondary text-xs font-weight-bold text-danger">No Delivered Orders!</span>
+                        </td>
+                      </tr>
+                      @endforelse
                   </tbody>
                 </table>
               </div>

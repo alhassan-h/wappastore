@@ -62,7 +62,11 @@
                       </td>
                     </tr>
                     @empty
-                    <span class="text-secondary text-xs font-weight-bold">No Customers</span>
+                    <tr>
+                      <td>
+                        <span class="text-secondary text-xs font-weight-bold text-danger">No Customers</span>
+                      </td>
+                    </tr>
                     @endforelse
                   </tbody>
                 </table>

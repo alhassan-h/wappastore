@@ -95,7 +95,8 @@
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm"> updated  {{$analytics['sales_last_update']}}</p>
+                @php($updated_sales = $analytics['sales_last_update'])
+                <p class="mb-0 text-sm">{{($updated_sales)?"updated $updated_sales":""}}</p>
                 </div>
             </div>
             </div>
@@ -115,7 +116,8 @@
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>
-                <p class="mb-0 text-sm">updated {{$analytics['orders_last_update']}}</p>
+                @php($updated_orders = $analytics['orders_last_update'])
+                <p class="mb-0 text-sm">{{($updated_orders)?"updated $updated_orders":""}}</p>
                 </div>
             </div>
             </div>

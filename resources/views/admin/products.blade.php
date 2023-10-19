@@ -146,7 +146,11 @@
                 </div>
                 @empty
                 <div class="col-xl-3 col-md-6 mb-xl-0">
-                    <p class="mb-0 px-3 font-weight-bold text-md text-primary">No product matching that filter!</p>
+                    @if(in_array('all', $data['filters']))
+                    <p class="mb-0 px-3 font-weight-bold text-md text-danger">No products in store!</p>
+                    @else
+                    <p class="mb-0 px-3 font-weight-bold text-md text-danger">No product matching that filter!</p>
+                    @endif
                 </div>
                 @endforelse
             </div>

@@ -94,8 +94,10 @@ class DashboardController extends Controller
             'montly_orders_data' =>  $montly_orders_data,
             'sales_perc_inc' =>  $sales_perc_inc,
             'orders_perc_inc' =>  $orders_perc_inc,
-            'sales_last_update' =>  Carbon::parse(Order::getLastSaleDate())->DiffForHumans(),
-            'orders_last_update' =>  Carbon::parse(Order::getLastOrderDate())->DiffForHumans(),
+            'sales_last_update' =>  (Order::getLastSaleDate())?
+                Carbon::parse(Order::getLastSaleDate())->DiffForHumans():'',
+            'orders_last_update' =>  (Order::getLastOrderDate())?
+                Carbon::parse(Order::getLastOrderDate())->DiffForHumans():'',
         ];
 
         $data = [
