@@ -6,7 +6,7 @@
     <div class="container my-auto">
         <div class="row">
             <div class="col-lg-4 col-md-8 col-12 mx-auto">
-                
+                <h1>Hello</h1>
             </div>
         </div>
     </div>

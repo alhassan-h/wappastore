@@ -214,10 +214,10 @@ class CustomerController extends Controller
 
         $customer = $user->customer;
 
-        // dd($customer->cart);
-
+        
         $cart = ($customer->cart)?$customer->cart:[];
-
+        
+        // dd($customer->cart);
         $data = [
             'page_name' => 'cart',
             'cart' => $cart,
@@ -252,11 +252,11 @@ class CustomerController extends Controller
         }
 
         if( $customer->hasInCart($product) ){
-            $cart_product = $customer->getFromCart($product);
-            $cart_product->increment('quantity');
-            
-            $new_quantity = $available_quantity - $quantity;
-            $product->update(['quantity' => $new_quantity]);
+            return redirect()->back()->with('warning', 'Product already in cart!');
+            // $cart_product = $customer->getFromCart($product);
+            // $cart_product->increment('quantity');
+            // $new_quantity = $available_quantity - $quantity;
+            // $product->update(['quantity' => $new_quantity]);
 
         }else{
             $new_quantity = $available_quantity - $quantity;

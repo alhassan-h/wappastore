@@ -92,6 +92,12 @@
                                         <option value="red" @selected(old('color') == 'red' || $product->color == 'red')>Red</option>
                                         <option value="black" @selected(old('color') == 'black' || $product->color == 'black')>Black</option>
                                         <option value="white" @selected(old('color') == 'white' || $product->color == 'white')>White</option>
+                                        <option value="blue" @selected(old('color') == 'blue'  || $product->color == 'blue')>Blue</option>
+                                        <option value="green" @selected(old('color') == 'green'  || $product->color == 'green')>Green</option>
+                                        <option value="brown" @selected(old('color') == 'brown'  || $product->color == 'brown')>Brown</option>
+                                        <option value="pink" @selected(old('color') == 'pink'  || $product->color == 'pink')>Pink</option>
+                                        <option value="purple" @selected(old('color') == 'purple'  || $product->color == 'purple')>Purple</option>
+                                        <option value="yellow" @selected(old('color') == 'yellow'  || $product->color == 'yellow')>Yellow</option>
                                     </select>
                                     @error('color')
                                     <span class="invalid-feedback d-flex" role="alert">

@@ -50,18 +50,42 @@
                             </div>
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Color</label>
-                                <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'red')is-filled is-focused @endif">
+                                <div class="form-switch mx-2 d-flex justify-content-between col-6">
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'red')is-filled is-focused @endif">
                                         <label for="category-red" class="me-2">Red</label>
                                         <input class="form-check-input ms-auto" type="radio" value="red" id="category-red" name="color" @selected(isset($filters['color']) && $filters['color'] == 'red')>
                                     </div>
-                                    <div class="mx-3 @if(isset($filters['color']) && $filters['color'] == 'black')is-filled is-focused @endif">
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'black')is-filled is-focused @endif">
                                         <label for="color-black" class="me-2">Black</label>
                                         <input class="form-check-input ms-auto" type="radio" value="black" id="color-black" name="color" @selected(isset($filters['color']) && $filters['color'] == 'black')>
                                     </div>
-                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'white')is-filled is-focused @endif">
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'white')is-filled is-focused @endif">
                                         <label for="color-white" class="me-2">White</label>
                                         <input class="form-check-input ms-auto" type="radio" value="white" id="color-white" name="color" @selected(isset($filters['color']) && $filters['color'] == 'white')>
+                                    </div>
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'blue')is-filled is-focused @endif">
+                                        <label for="color-blue" class="me-2">Blue</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="blue" id="color-blue" name="color" @selected(isset($filters['color']) && $filters['color'] == 'blue')>
+                                    </div>
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'green')is-filled is-focused @endif">
+                                        <label for="color-green" class="me-2">Green</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="green" id="color-green" name="color" @selected(isset($filters['color']) && $filters['color'] == 'green')>
+                                    </div>
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'brown')is-filled is-focused @endif">
+                                        <label for="color-brown" class="me-2">Brown</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="brown" id="color-brown" name="color" @selected(isset($filters['color']) && $filters['color'] == 'brown')>
+                                    </div>
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'pink')is-filled is-focused @endif">
+                                        <label for="color-pink" class="me-2">Pink</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="pink" id="color-pink" name="color" @selected(isset($filters['color']) && $filters['color'] == 'pink')>
+                                    </div>
+                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'purple')is-filled is-focused @endif">
+                                        <label for="color-purple" class="me-2">Purple</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="purple" id="color-purple" name="color" @selected(isset($filters['color']) && $filters['color'] == 'purple')>
+                                    </div>
+                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'yellow')is-filled is-focused @endif">
+                                        <label for="color-yellow" class="me-2">Yellow</label>
+                                        <input class="form-check-input ms-auto" type="radio" value="yellow" id="color-yellow" name="color" @selected(isset($filters['color']) && $filters['color'] == 'yellow')>
                                     </div>
                                 </div>
                             </div>

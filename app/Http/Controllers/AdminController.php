@@ -68,7 +68,7 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'category' => 'sometimes|in:shirts,trousers',
             'gender' => 'sometimes|in:boys,girls',
-            'color' => 'sometimes|in:black,white,red',
+            'color' => 'sometimes|in:black,white,red,blue,green,brown,pink,purple,yellow',
         ]);
 
         $conditions = [];
@@ -127,8 +127,8 @@ class AdminController extends Controller
          'name' => 'required',
          'category' => 'required|in:shirts,trousers',
          'gender' => 'required|in:boys,girls',
-         'color' => 'required|in:black,white,red',
-         'quantity' => 'required|gt:0|lte:15',
+         'color' => 'required|in:black,white,red,blue,green,brown,pink,purple,yellow',
+         'quantity' => 'required|gt:0',
          'price' => 'required',
          'product-image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);

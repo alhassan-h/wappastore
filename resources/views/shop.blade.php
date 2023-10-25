@@ -57,7 +57,7 @@ $isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
                             </div>
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Color</label>
-                                <div class="form-switch mx-2 d-flex justify-content-between">
+                                <div class="form-switch mx-2 d-flex justify-content-between col-6">
                                     <div class="">
                                         <label for="category-red" class="me-2">Red</label>
                                         <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'red') value="red" id="category-red" name="color">
@@ -69,6 +69,30 @@ $isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
                                     <div class="">
                                         <label for="color-white" class="me-2">White</label>
                                         <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'white') value="white" id="color-white" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-blue" class="me-2">blue</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'blue') value="blue" id="color-blue" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-green" class="me-2">green</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'green') value="green" id="color-green" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-brown" class="me-2">brown</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'brown') value="brown" id="color-brown" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-pink" class="me-2">pink</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'pink') value="pink" id="color-pink" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-purple" class="me-2">purple</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'purple') value="purple" id="color-purple" name="color">
+                                    </div>
+                                    <div class="">
+                                        <label for="color-yellow" class="me-2">yellow</label>
+                                        <input class="form-check-input ms-auto" type="radio" @selected(old('color') == 'yellow') value="yellow" id="color-yellow" name="color">
                                     </div>
                                 </div>
                             </div>

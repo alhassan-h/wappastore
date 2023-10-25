@@ -122,7 +122,7 @@ class HomeController extends Controller
         $validatedData = $request->validate([
             'category' => 'sometimes|in:shirts,trousers',
             'gender' => 'sometimes|in:boys,girls',
-            'color' => 'sometimes|in:black,white,red',
+            'color' => 'sometimes|in:black,white,red,blue,green,brown,pink,purple,yellow',
         ]);
 
         $conditions = [];

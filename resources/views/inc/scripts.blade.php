@@ -67,9 +67,9 @@
             // paymentForm.addEventListener('submit', payWithPaystack, false);
             function payWithPaystack() {
             var handler = PaystackPop.setup({
-                key: 'pk_test_a21e71e0b173773ef533d47d14d3ecc63351f6b3', // Replace with your public key
+                key: 'pk_test_51dff8972956be6712996a750f1a7f2b7115f4fc', // Replace with your public key
                 email: "{{Auth::user()->email}}",
-                amount: Number("{{$total_price}}") * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+                amount: Number("{{$total_discount}}") * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
                 currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
                 ref: Math.floor((Math.random() * 1000000000) + 1), // Replace with a reference you generated
                 callback: function(response) {

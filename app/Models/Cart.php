@@ -42,5 +42,37 @@ class Cart extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function getQuantity()
+    {
+        return ($this->quantity)?$this->quantity:0;
+    }
+    
+    public function getPrice()
+    {
+        return $this->product->price;
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->getPrice() * $this->getQuantity();
+    }
+
+    public function hasDiscount()
+    {
+        return $this->getQuantity() >= 12;
+    }
+
+    public function getDiscountPercent()
+    {
+        return $this->hasDiscount()?'12.5':'0';
+    }
+
+    public function getDiscountPrice()
+    {
+        $total_price = $this->getTotalPrice();
+        $discount_price = ($this->hasDiscount())?$total_price - ($total_price * 0.125):$total_price;
+        return $discount_price;
+    }
+
 
 }

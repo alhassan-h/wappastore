@@ -1,7 +1,8 @@
 @extends('layouts.auth')
 
 @php($cart = $data['cart'])
-@php($total_price = 0)
+@php($grand_total = 0)
+@php($total_discount = 0)
 
 @section('content')
 
@@ -9,22 +10,10 @@
     <div class="container py-5">
         <div class="row mb-0">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-lg-0 mb-0">
-                <div class="card mt-4">
-                    <div class="card-header pb-0 p-3">
-                        <div class="row">
-                            <div class="col-6 d-flex align-items-center">
-                                <h6 class="mb-0">{{$cart->count()}} Product(s) in Cart</h6>
-                            </div>
-                            <div class="col-6 d-flex align-items-center">
-                                @if($cart->isNotEmpty())
-                                <button type="submit" class="btn btn-lg btn-success" onclick="payWithPaystack()"> Pay Now </button>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                <div class="card d-flex flex-column-reverse mt-4">
                     <div class="card-body p-3">
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-lg-0 mb-5 d-flex">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-lg-0 mb-5 d-flex flex-column-reverse">
                                 <div class="card-body p-3">
                                     <div class="table-responsive p-0">
                                         <table class="table mb-0">
@@ -38,7 +27,7 @@
                                             <tbody>
                                                 @forelse($cart as $crt)
                                                     @php($img = $crt->product->image)
-                                                    @php($price = $crt->product->price * $crt->quantity)
+                                                    @php($total_price = $crt->getTotalPrice())
                                                     <tr>
                                                         <td>
                                                             <div>
@@ -94,10 +83,12 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <p class="text-lg text-danger font-weight-bold mb-0">&#8358; {{number_format($price)}}</p>
+                                                            <p class="text-lg text-danger mb-1 @if($crt->hasDiscount())  @endif">&#8358; {{number_format($total_price)}}</p>
+                                                            <p class="text-lg text-success font-weight-bold mb-0">&#8358; {{number_format($crt->getDiscountPrice())}} <span class="text-sm text-primary font-weight-normal text-uppercase">({{$crt->getDiscountPercent()}}% off)</span></p>
                                                         </td>
                                                     </tr>
-                                                    @php($total_price += $price)
+                                                    @php($grand_total += $total_price)
+                                                    @php($total_discount += $crt->getDiscountPrice())
                                                     @empty
                                                     <p class="text-danger text-lg">No products in Cart! Continue shopping</p>
                                                 @endforelse
@@ -105,10 +96,25 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="">
-
-                                    <h3 class="text-lg text-danger">Total: &#8358; {{number_format($total_price)}}</h3>
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="text-lg text-danger">Total: &#8358; {{number_format($grand_total)}}</h3>
+                                    <div class="d-flex flex-column">
+                                        <h3 class="text-lg text-success">Discounted Total: &#8358; {{number_format($total_discount)}}</h3>
+                                        <span class="text-sm text-primary font-weight-bold text-uppercase">{{($grand_total)?sprintf('%.2f',(($grand_total-$total_discount)/$grand_total)*100):0}}% off</span>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header pb-0 p-3">
+                        <div class="row">
+                            <div class="col-6 d-flex align-items-center">
+                                <h6 class="mb-0">{{$cart->count()}} Product(s) in Cart</h6>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                @if($cart->isNotEmpty())
+                                <button type="submit" class="btn btn-lg btn-success" onclick="payWithPaystack()"> Pay &#8358;{{number_format($total_discount)}} Now </button>
+                                @endif
                             </div>
                         </div>
                     </div>
