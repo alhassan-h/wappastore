@@ -127,26 +127,15 @@ $isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
                              </a>
                         </div>
                         <div class="card-body p-3">
-                            <h5 class="mb-2 text-lg">{{ucwords($product->name)}}</h5>
-                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Category:</p>
-                                <span class="text-sm">{{ucwords($product->category)}}</span>
+                            <div class="mb-2 d-flex justify-content-between">
+                                <h5 class="text-lg">{{ucwords($product->name)}}</h5>
+                                <div class="ms-2 d-flex justify-content-between flex-column">
+                                    <span class="text-primary font-weight-bold">&#8358;{{number_format($product->price)}}</span>
+                                </div>
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Gender:</p>
-                                <span class="text-sm">{{ucwords($product->gender)}}</span>
-                            </div>
-                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Color:</p>
-                                <span class="text-sm">{{ucwords($product->color)}}</span>
-                            </div>
-                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Quantity:</p>
+                                <p class="mb-0 font-weight-bold text-md">Pieces Left:</p>
                                 <span class="text-sm">{{$product->quantity}}</span>
-                            </div>
-                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Price:</p>
-                                <span class="text-sm">&#8358;{{number_format($product->price)}}</span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                             @if($product->quantity < 1)   
@@ -162,7 +151,7 @@ $isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
                         </div>
                     </div>
                 </div>
-                @endforeach
+            @endforeach
             </div>
         </div>
     </div>

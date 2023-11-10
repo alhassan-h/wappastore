@@ -73,6 +73,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'string', 'size:11', 'unique:customers'],
             'address' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
             'profile' => ['sometimes', 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'],
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -106,6 +107,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'profile' => $data['profile'],
             'address' => $data['address'],
+            'state' => $data['state'],
         ]);
     }
 

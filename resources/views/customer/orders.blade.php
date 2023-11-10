@@ -21,7 +21,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">order id</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">bulk</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
@@ -37,13 +37,13 @@
                                         <p class="text-xs font-weight-bold mb-0">{{ucwords($order->product->name)}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}</p>
+                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}<span class="ms-2 text-monospace text-sm text-warning">({{$order->quantity * 12}} pcs)</span></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <span class="">&#8358; {{number_format($order->paid_price)}}</span>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y', strtotime($order->created_at))}}</span>
+                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y h:m A', strtotime($order->created_at))}}</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <span class="badge badge-sm bg-gradient-warning">{{ucfirst($order->status)}}</span>

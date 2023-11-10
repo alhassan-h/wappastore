@@ -21,7 +21,7 @@
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">#</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bulk</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
@@ -37,13 +37,13 @@
                                         <p class="text-xs font-weight-bold mb-0">{{ucwords($product->product->name)}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$product->quantity}}</p>
+                                        <p class="text-xs font-weight-bold text-center  mb-0">{{$product->quantity}}<span class="ms-2 text-monospace text-sm text-warning">({{$product->quantity * 12}} pcs)</span></p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <span class="">&#8358; {{number_format($product->paid_price)}}</span>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y', strtotime($product->created_at))}}</span>
+                                        <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y h:m A', strtotime($product->created_at))}}</span>
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <span class="badge badge-sm bg-gradient-success">{{ucfirst($product->status)}}</span>

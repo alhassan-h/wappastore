@@ -11,7 +11,7 @@
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Products' Filter</h6>
+                            <h6 class="mb-0">Filter Products</h6>
                         </div>
                         <div class="col-6 text-end">
                             <a class="btn bg-gradient-success mb-0" href="{{route('add.product')}}"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Product</a>
@@ -25,67 +25,26 @@
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Category</label>
                                 <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="me-3 @if(isset($filters['category']) && $filters['category'] == 'shirts')is-filled is-focused @endif">
+                                    <div class="me-3">
                                         <label for="category-shirts" class="me-2">Shirts</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="shirts" id="category-shirts" name="category" @selected(isset($filters['category']) && $filters['category'] == 'shirts')>
+                                        <input class="form-check-input ms-auto" type="radio" @checked(old('category') == 'shirts' || in_array('shirts', $data['filters'])) value="shirts" id="category-shirts" name="category">
                                     </div>
-                                    <div class="@if(isset($filters['category']) && $filters['category'] == 'trousers')is-filled is-focused @endif">
+                                    <div class="">
                                         <label for="category-trousers" class="me-2">Trousers</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="trousers" id="category-trousers" name="category" @selected(isset($filters['category']) && $filters['category'] == 'trousers')>
+                                        <input class="form-check-input ms-auto" type="radio" @checked(old('category') == 'trousers' || in_array('trousers', $data['filters'])) value="trousers" id="category-trousers" name="category">
                                     </div>
                                 </div>
                             </div>
                             <div class="input-group input-group-outline mx-1">
                                 <label class="font-weight-bold" for="">Gender</label>
                                 <div class="form-switch mx-2 d-flex justify-content-between">
-                                    <div class="me-3 @if(isset($filters['gender']) && $filters['gender'] == 'boys')is-filled is-focused @endif">
+                                    <div class="me-3">
                                         <label for="gender-boys" class="me-2">Boys</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="boys" id="gender-boys" name="gender" @selected(isset($filters['gender']) && $filters['gender'] == 'boys')>
+                                        <input class="form-check-input ms-auto" type="radio" @checked(old('gender') == 'boys'  || in_array('boys', $data['filters'])) value="boys" id="gender-boys" name="gender">
                                     </div>
-                                    <div class="@if(isset($filters['gender']) && $filters['gender'] == 'girls')is-filled is-focused @endif">
+                                    <div class="">
                                         <label for="gender-girls" class="me-2">Girls</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="girls" id="gender-girls" name="gender" @selected(isset($filters['gender']) && $filters['gender'] == 'girls')>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group input-group-outline mx-1">
-                                <label class="font-weight-bold" for="">Color</label>
-                                <div class="form-switch mx-2 d-flex justify-content-between col-6">
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'red')is-filled is-focused @endif">
-                                        <label for="category-red" class="me-2">Red</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="red" id="category-red" name="color" @selected(isset($filters['color']) && $filters['color'] == 'red')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'black')is-filled is-focused @endif">
-                                        <label for="color-black" class="me-2">Black</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="black" id="color-black" name="color" @selected(isset($filters['color']) && $filters['color'] == 'black')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'white')is-filled is-focused @endif">
-                                        <label for="color-white" class="me-2">White</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="white" id="color-white" name="color" @selected(isset($filters['color']) && $filters['color'] == 'white')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'blue')is-filled is-focused @endif">
-                                        <label for="color-blue" class="me-2">Blue</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="blue" id="color-blue" name="color" @selected(isset($filters['color']) && $filters['color'] == 'blue')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'green')is-filled is-focused @endif">
-                                        <label for="color-green" class="me-2">Green</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="green" id="color-green" name="color" @selected(isset($filters['color']) && $filters['color'] == 'green')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'brown')is-filled is-focused @endif">
-                                        <label for="color-brown" class="me-2">Brown</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="brown" id="color-brown" name="color" @selected(isset($filters['color']) && $filters['color'] == 'brown')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'pink')is-filled is-focused @endif">
-                                        <label for="color-pink" class="me-2">Pink</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="pink" id="color-pink" name="color" @selected(isset($filters['color']) && $filters['color'] == 'pink')>
-                                    </div>
-                                    <div class="me-2 @if(isset($filters['color']) && $filters['color'] == 'purple')is-filled is-focused @endif">
-                                        <label for="color-purple" class="me-2">Purple</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="purple" id="color-purple" name="color" @selected(isset($filters['color']) && $filters['color'] == 'purple')>
-                                    </div>
-                                    <div class="@if(isset($filters['color']) && $filters['color'] == 'yellow')is-filled is-focused @endif">
-                                        <label for="color-yellow" class="me-2">Yellow</label>
-                                        <input class="form-check-input ms-auto" type="radio" value="yellow" id="color-yellow" name="color" @selected(isset($filters['color']) && $filters['color'] == 'yellow')>
+                                        <input class="form-check-input ms-auto" type="radio" @checked(old('gender') == 'girls'  || in_array('girls', $data['filters'])) value="girls" id="gender-girls" name="gender">
                                     </div>
                                 </div>
                             </div>
@@ -99,16 +58,19 @@
         </div>
     </div>
     <div class="row mb-4">
-         <div class="col-12 mt-4">
-            <div class="mb-3 ps-3">
-                <h6 class="mb-1">Categories:</h6>
-                @foreach($data['filters'] as $filter)
-                    @if ($loop->last)
-                    <span class="text-sm me-1">{{ucfirst($filter)}}.</span>
-                    @else
-                    <span class="text-sm me-1">{{ucfirst($filter)}},</span>
-                    @endif
-                @endforeach
+         <div class="col-12 mt-2">
+            <div class="mb-3 ps-3 d-flex align-items-center">
+                <h6 class="mb-0 me-2">Filter:</h6>
+                <div>
+                    @foreach($data['filters'] as $filter)
+                        @if ($loop->last)
+                        <span class="text-sm m-0 p-0">{{ucfirst($filter)}}.</span>
+                        @else
+                        <span class="text-sm me-1 m-0 p-0">{{ucfirst($filter)}},</span>
+                        @endif
+                    @endforeach
+                    @if(!in_array('all', $data['filters'])) <a class="btn btn-success btn-sm p-1 ms-4" href="{{route('products')}}">All Products</a> @endif
+                </div>
             </div>
             <div class="row">
                 @forelse($data['products'] as $product)
@@ -130,7 +92,7 @@
                                 <span class="text-sm">{{ucwords($product->gender)}}</span>
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
-                                <p class="mb-0 font-weight-bold text-md">Color:</p>
+                                <p class="mb-0 font-weight-bold text-md">Color(s):</p>
                                 <span class="text-sm">{{ucwords($product->color)}}</span>
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
@@ -169,7 +131,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="col-xl-3 col-md-6 mb-xl-0">
+                <div class="col-6 mb-0">
                     @if(in_array('all', $data['filters']))
                     <p class="mb-0 px-3 font-weight-bold text-md text-danger">No products in store!</p>
                     @else

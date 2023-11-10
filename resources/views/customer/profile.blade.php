@@ -45,6 +45,7 @@
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp;{{$customer->phone}}</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{strtolower($customer->email)}}</li>
                                 <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; {{ucwords($customer->address)}}</li>
+                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">State:</strong> &nbsp; {{ucwords($customer->state)}}</li>
                             </ul>
                             <div class="mt-5">
                                 <a href="{{route('dashboard')}}" class="btn btn-primary">Back</a>

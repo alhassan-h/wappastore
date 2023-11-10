@@ -50,7 +50,7 @@ class AdminController extends Controller
         $data = [
             'page_name' => 'products',
             'filters' => ['all'],
-            'products' => Product::get(),
+            'products' => Product::orderBy('created_at', 'desc')->get(),
         ];
     
         return view('admin.products', compact('data'));
@@ -83,7 +83,7 @@ class AdminController extends Controller
             $conditions[] = ['color', $validatedData['color'] ];
         }
 
-        $products =  Product::where($conditions)->get();
+        $products =  Product::where($conditions)->orderBy('created_at', 'desc')->get();
 
         $filters = [
             'category' => (isset($validatedData['category']))?$validatedData['category']:'',
@@ -127,7 +127,7 @@ class AdminController extends Controller
          'name' => 'required',
          'category' => 'required|in:shirts,trousers',
          'gender' => 'required|in:boys,girls',
-         'color' => 'required|in:black,white,red,blue,green,brown,pink,purple,yellow',
+         'color' => 'required',
          'quantity' => 'required|gt:0',
          'price' => 'required',
          'product-image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
@@ -137,6 +137,7 @@ class AdminController extends Controller
         
         $fileName = time() . '.' . $validatedData['image']->extension();
         $validatedData['image']->storeAs('public/images', $fileName);
+        $validatedData['color'] = strtolower(implode(', ', $validatedData['color']));
         $validatedData['image'] = $fileName;
 
         $product = Product::create($validatedData);
@@ -203,7 +204,7 @@ class AdminController extends Controller
          'name' => 'required',
          'category' => 'required|in:shirts,trousers',
          'gender' => 'required|in:boys,girls',
-         'color' => 'required|in:black,white,red',
+         'color' => 'required',
          'quantity' => 'required|gt:0|lte:15',
          'price' => 'required',
          'product-image' => 'sometimes|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
@@ -211,6 +212,7 @@ class AdminController extends Controller
 
         // dd($validatedData);
         $product_id = $validatedData['product_id'];
+        $validatedData['color'] = strtolower(implode(', ', $validatedData['color']));
 
         // if changing the product's image, save it.
         if(isset($validatedData['product-image'])){
@@ -254,8 +256,10 @@ class AdminController extends Controller
      */
     public function orders(Request $request)
     {
-        $delivered_orders = Order::where('status', 'delivered')->get();
-        $undelivered_orders = Order::where('status', 'undelivered')->get();
+        $delivered_orders = Order::where('status', 'delivered')
+        ->orderBy('updated_at', 'desc')->get();
+        $undelivered_orders = Order::where('status', 'undelivered')
+        ->orderBy('updated_at', 'desc')->get();
 
         $data = [
             'page_name' => 'orders',
@@ -293,7 +297,9 @@ class AdminController extends Controller
     {
         $data = [
             'page_name' => 'customers',
-            'customers' => DB::table('users')->join('customers', 'users.id', 'customers.user_id')
+            'customers' => DB::table('users')
+            ->join('customers', 'users.id', 'customers.user_id')
+            ->orderBy('customers.created_at', 'desc')
             ->get(),
         ];
 

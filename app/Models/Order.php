@@ -84,7 +84,7 @@ class Order extends Model
     
     public static function getLastSaleDate(): string
     {
-        $last_sale_date = Order::where('status', 'delivered')->max('updated_at');
+        $last_sale_date = Order::max('created_at');
         return ($last_sale_date)?$last_sale_date:'';
     }
 

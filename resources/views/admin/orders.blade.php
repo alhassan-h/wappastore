@@ -22,7 +22,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">customer</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bulk</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
@@ -40,7 +40,9 @@
                             </div>--}}
                             <div class="d-flex flex-column justify-content-center">
                               <h6 class="mb-0 text-sm">{{ucwords($order->customer->getName())}}</h6>
-                              <p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getEmail())}}</p>
+                              <p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getPhone())}}</p>
+                              {{--<p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getEmail())}}</p>--}}
+                              <p class="text-xs text-secondary mb-0">{{ucfirst($order->customer->getState())}} State</p>
                             </div>
                           </div>
                         </td>
@@ -48,7 +50,7 @@
                           <p class="text-xs font-weight-bold mb-0">{{ucwords($order->product->name)}}</p>
                         </td>
                         <td>
-                          <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}</p>
+                          <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}<span class="ms-2 text-monospace text-sm text-warning">({{$order->quantity * 12}} pcs)</span></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="badge badge-sm bg-gradient-warning">{{$order->status}}</span>
@@ -97,7 +99,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">customer</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">product</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bulk</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">status</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">total price</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date</th>
@@ -115,7 +117,9 @@
                             </div>--}}
                             <div class="d-flex flex-column justify-content-center">
                               <h6 class="mb-0 text-sm">{{ucwords($order->customer->getName())}}</h6>
-                              <p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getEmail())}}</p>
+                              <p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getPhone())}}</p>
+                              {{--<p class="text-xs text-secondary mb-0">{{strtolower($order->customer->getEmail())}}</p>--}}
+                              <p class="text-xs text-secondary mb-0">{{ucfirst($order->customer->getState())}} State</p>
                             </div>
                           </div>
                         </td>
@@ -123,7 +127,7 @@
                           <p class="text-xs font-weight-bold mb-0">{{ucwords($order->product->name)}}</p>
                         </td>
                         <td>
-                          <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}</p>
+                          <p class="text-xs font-weight-bold text-center  mb-0">{{$order->quantity}}<span class="ms-2 text-monospace text-sm text-warning">({{$order->quantity * 12}} pcs)</span></p>
                         </td>
                         <td class="align-middle text-center text-sm">
                           <span class="badge badge-sm bg-gradient-success">{{$order->status}}</span>
@@ -132,7 +136,7 @@
                           <span class="">&#8358; {{number_format($order->paid_price)}}</span>
                         </td>
                         <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y H:m A', strtotime($order->updated_at))}}</span>
+                          <span class="text-secondary text-xs font-weight-bold">{{date('d/m/Y h:m A', strtotime($order->updated_at))}}</span>
                         </td>
                       </tr>
                       @empty

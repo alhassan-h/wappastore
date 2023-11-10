@@ -40,4 +40,16 @@ class Product extends Model
     {
         return ($this->cart)->count() != 0;
     }
+
+    public function getDiscountPrice()
+    {
+        $price = $this->price * 12;
+        $discount_price = ($this->price > 0)?$price - ($price * 0.125):$price;
+        return $discount_price;
+    }
+
+    public function getColorsArray()
+    {
+        return explode(', ', strtolower($this->color));
+    }
 }

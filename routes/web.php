@@ -28,6 +28,8 @@ Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])-
 Route::post('/contact/sendmessage', [App\Http\Controllers\HomeController::class, 'saveMessage'])->name('sendmessage.contact');
 Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop'])->name('shop');
 Route::post('/shop', [App\Http\Controllers\HomeController::class, 'filterShop'])->name('filter.shop');
+Route::get('/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
+Route::post('/store', [App\Http\Controllers\HomeController::class, 'filterStore'])->name('filter.store');
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -40,6 +42,8 @@ Route::post('/profile/update', [App\Http\Controllers\CustomerController::class, 
 Route::get('/cart', [App\Http\Controllers\CustomerController::class, 'cart'])->name('cart');
 Route::post('/cart/addtocart', [App\Http\Controllers\CustomerController::class, 'addToCart'])->name('addto.cart');
 Route::post('/cart/updatecart', [App\Http\Controllers\CustomerController::class, 'updateCart'])->name('updatecart.cart');
+Route::post('/cart/addtocart/store', [App\Http\Controllers\CustomerController::class, 'storeAddToCart'])->name('store.addto.cart');
+Route::post('/cart/updatecart/store', [App\Http\Controllers\CustomerController::class, 'storeUpdateCart'])->name('store.updatecart.cart');
 Route::post('/cart/deletecart', [App\Http\Controllers\CustomerController::class, 'deleteCart'])->name('deletecart.cart');
 Route::get('/cart/checkout', [App\Http\Controllers\CustomerController::class, 'checkout'])->name('checkout.cart');
 

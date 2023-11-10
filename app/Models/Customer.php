@@ -22,6 +22,7 @@ class Customer extends Model
         'phone',
         // 'profile',
         'address',
+        'state',
     ];
 
     /**
@@ -51,11 +52,12 @@ class Customer extends Model
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    public function hasInCart( $product ): bool
+    public function hasInCart( $product, $type='pieces' ): bool
     {
         return Cart::where([
             ['customer_id', $this->id],
             ['product_id', $product->id],
+            ['type', $type],
         ])->count() > 0;
     }
 
@@ -85,6 +87,16 @@ class Customer extends Model
     public function getEmail()
     {
         return $this->user->email;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
     }
 
     public static function getTotalCustomers(): int

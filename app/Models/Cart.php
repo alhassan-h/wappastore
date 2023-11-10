@@ -22,6 +22,7 @@ class Cart extends Model
         'customer_id',
         'product_id',
         'quantity',
+        'type',
     ];
 
     /**
@@ -59,7 +60,7 @@ class Cart extends Model
 
     public function hasDiscount()
     {
-        return $this->getQuantity() >= 12;
+        return $this->type == 'bulk';
     }
 
     public function getDiscountPercent()
@@ -67,10 +68,25 @@ class Cart extends Model
         return $this->hasDiscount()?'12.5':'0';
     }
 
+    public function getActualPrice()
+    {
+                
+        $price = $this->getTotalPrice();
+
+        if($this->hasDiscount())
+            $price *= 12;
+
+        return $price;
+    }
+
     public function getDiscountPrice()
     {
-        $total_price = $this->getTotalPrice();
-        $discount_price = ($this->hasDiscount())?$total_price - ($total_price * 0.125):$total_price;
+        
+        if($this->hasDiscount())
+            $discount_price = $this->product->getDiscountPrice() * $this->getQuantity();
+        else
+            $discount_price = $this->getTotalPrice();
+
         return $discount_price;
     }
 

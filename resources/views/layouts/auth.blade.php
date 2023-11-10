@@ -25,6 +25,9 @@
   <main class="main-content  mt-0">
     @yield('content')
   </main>
+  <!-- footer -->
+    @include('inc.footer')
+    <!-- End footer -->
   <!--   Core JS Files   -->
   @include('inc.scripts')
 </body>

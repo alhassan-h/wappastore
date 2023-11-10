@@ -81,6 +81,18 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    
+                                    <div class="input-group input-group-outline my-2">
+                                        <label for="state" class="col-md-4 col-form-label pb-0 text-md-begin">{{__('State')}}</label>
+                                        <div class="col-12">
+                                            <input id="state" type="text" class="form-control @error('state') is-invalid @enderror" name="state" value="{{old('state', $customer->state)}}" placeholder="State"  required>
+                                            @error('state')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{$message}}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="input-group input-group-outline">
                                         <label for="password" class="col-md-4 col-form-label pb-0 text-md-begin">{{__('Password')}}</label>

@@ -91,7 +91,7 @@
             </div>
             <div class="card-body">
                 <h6 class="mb-0 "> Monthly Sales </h6>
-                <p class="text-sm "> (<span class="font-weight-bolder">+{{$analytics['sales_perc_inc']}}%</span>) increase in this month's sales. </p>
+                <p class="text-sm "> (<span class="font-weight-bolder">+{{sprintf('%.2f', $analytics['sales_perc_inc'])}}%</span>) increase in this month's sales. </p>
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -112,7 +112,7 @@
             </div>
             <div class="card-body">
                 <h6 class="mb-0 ">Monthly Orders</h6>
-                <p class="text-sm "> (<span class="font-weight-bolder">+{{$analytics['orders_perc_inc']}}%</span>) increase in this month's orders.</p>
+                <p class="text-sm "> (<span class="font-weight-bolder">+{{sprintf('%.2f', $analytics['orders_perc_inc'])}}%</span>) increase in this month's orders.</p>
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                 <i class="material-icons text-sm my-auto me-1">schedule</i>

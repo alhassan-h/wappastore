@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
                                 <div class="position-relative bg-gradient-primary h-100 w-100 border-radius-lg d-flex flex-column justify-content-center"
-                                    style="background-image: url('../assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
+                                    style="background-image: url({{asset('assets/img/downloads/istockphoto-931577634-612x612.jpg')}}); background-size: cover;">
                                 </div>
                             </div>
                         </div>

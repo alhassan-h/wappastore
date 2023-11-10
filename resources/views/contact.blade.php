@@ -114,7 +114,7 @@
                         <div class="row">
                             @foreach($messages as $message)
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4">
-                                <div class="card card-blog border">
+                                <div class="card card-blog border h-100">
                                     <div class="card-body p-3">
                                         <div class="mb-2">
                                             <span class="mb-0 text-lg font-weight-bold text-dark">{{ucwords($message->sender_name)}}</span>

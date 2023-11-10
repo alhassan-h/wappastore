@@ -85,20 +85,17 @@
                             </div>
                             
                             <div class="input-group input-group-outline my-2">
-                                <label for="color" class="col-2 col-form-label pb-0 text-md-begin">{{__('Color')}}</label>
+                                <label for="color" class="col-2 col-form-label pb-0 text-md-begin">{{__('Color(s)')}}</label>
                                 <div class="col-md-6 col-sm-12">
-                                    <select id="color" class="form-control @error('color') is-invalid @enderror" name="color" autofocus>
-                                        <option value="-">--select color--</option>
-                                        <option value="red" @selected(old('color') == 'red' || $product->color == 'red')>Red</option>
-                                        <option value="black" @selected(old('color') == 'black' || $product->color == 'black')>Black</option>
-                                        <option value="white" @selected(old('color') == 'white' || $product->color == 'white')>White</option>
-                                        <option value="blue" @selected(old('color') == 'blue'  || $product->color == 'blue')>Blue</option>
-                                        <option value="green" @selected(old('color') == 'green'  || $product->color == 'green')>Green</option>
-                                        <option value="brown" @selected(old('color') == 'brown'  || $product->color == 'brown')>Brown</option>
-                                        <option value="pink" @selected(old('color') == 'pink'  || $product->color == 'pink')>Pink</option>
-                                        <option value="purple" @selected(old('color') == 'purple'  || $product->color == 'purple')>Purple</option>
-                                        <option value="yellow" @selected(old('color') == 'yellow'  || $product->color == 'yellow')>Yellow</option>
-                                    </select>
+                                    <div class="p-0 d-flex justify-content-between form-control">
+                                        @php($colors = $product->getColorsArray())
+                                        @foreach(['red','black','white','blue','green','brown','pink','purple','yellow'] as $color)
+                                        <div @class(['me-1','d-flex','align-items-center','justify-content-between','selected' => in_array($color, $colors)])>
+                                            <label for="color-{{$color}}" class="m-0">{{ucfirst($color)}}</label>
+                                            <input class="ms-auto" type="checkbox" value="{{$color}}" id="color-{{$color}}" name="color[]" @checked(old('color') == "$color" || in_array($color, $colors))>
+                                        </div>
+                                        @endforeach
+                                    </div>
                                     @error('color')
                                     <span class="invalid-feedback d-flex" role="alert">
                                             <strong>{{$message }}</strong>
@@ -120,7 +117,7 @@
                             </div>
                             
                             <div class="input-group input-group-outline my-2">
-                                <label for="price" class="col-2 col-form-label pb-0 text-md-begin">{{__('Price')}}</label>
+                                <label for="price" class="col-2 col-form-label pb-0 text-md-begin">{{__('Price')}} (&#8358;)</label>
                                 <div class="col-md-6 col-sm-12">
                                     <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{old('price', $product->price)}}" placeholder="price">
                                     @error('price')

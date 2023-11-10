@@ -21,12 +21,28 @@
                 </a>
             </li>
             @endif
+            {{--
+                <li class="nav-item">
+                    <a class="nav-link @if($page_name == 'shop') text-primary @endif me-2" href="{{ route('shop') }}">
+                    <i class="fa fa-cart-arrow-down opacity-6 me-1"></i>
+                    Shop
+                    </a>
+                </li>
+            --}}
             <li class="nav-item">
-                <a class="nav-link @if($page_name == 'shop') text-primary @endif me-2" href="{{ route('shop') }}">
-                <i class="fa fa-cart-arrow-down opacity-6 me-1"></i>
+                <a class="nav-link @if($page_name == 'store') text-primary @endif me-2" href="{{ route('store') }}">
+                <i class="fa fa-shopping-bag opacity-6 me-1"></i>
                 Shop
                 </a>
             </li>
+            @if (Auth::check() && !Auth::user()->isAdmin())
+            <li class="nav-item">
+                <a class="nav-link @if($page_name == 'cart') text-primary @endif me-2" href="{{ route('cart') }}">
+                <i class="fa fa-cart-plus opacity-6 me-1"></i>
+                Cart
+                </a>
+            </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link @if($page_name == 'about') text-primary @endif me-2" aria-current="page" href="{{ route('about') }}">
                 <i class="fa fa-info-circle opacity-6 me-1"></i>
@@ -56,6 +72,19 @@
                     </a>
                 </li>
                 @endif
+            @endif
+            @if (Auth::check())
+            <li class="nav-item">
+                <a class="nav-link me-2" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                <i class="fa fa-sign-out opacity-6 me-1"></i>
+                Logout
+                </a>
+            </li>
             @endif
         </ul>
     </div>

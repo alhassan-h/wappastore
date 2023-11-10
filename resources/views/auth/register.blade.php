@@ -1,7 +1,8 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+<!-- <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');"> -->
+<div class="page-header align-items-start min-vh-100" style="background-image: url({{asset('assets/img/downloads/pexels-rdne-stock-project-8082807.jpg')}});">
     <span class="mask bg-gradient-dark opacity-6"></span>
     <div class="container my-auto">
         <div class="row">
@@ -57,6 +58,18 @@
                             <div class="col-12">
                                 <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" placeholder="Address"  required autocomplete="address" autofocus>
                                 @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="input-group input-group-outline my-2">
+                            <!-- <label for="state" class="col-md-4 col-form-label pb-0 text-md-begin">{{ __('State') }}</label> -->
+                            <div class="col-12">
+                                <input id="state" type="text" class="form-control @error('state') is-invalid @enderror" name="state" value="{{ old('state') }}" placeholder="State"  required autocomplete="state" autofocus>
+                                @error('state')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
