@@ -104,7 +104,12 @@ $isCustomer = ($isLoggedIn && !Auth::user()->isAdmin())?true:false;
                             
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
                                 <p class="mb-0 font-weight-bold text-md me-2 text-monospace">Color(s):</p>
-                                <span class="text-sm">{{$product->color}}</span>
+                                <span class="text-sm text-dark">{{$product->color}}</span>
+                            </div>
+
+                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
+                                <p class="mb-0 font-weight-bold text-md me-2 text-monospace">Size:</p>
+                                <span class="text-sm text-primary">{{$product->size}}&nbsp;&nbsp;years</span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                             @if(intVal( $product->quantity/12 ) < 1)   

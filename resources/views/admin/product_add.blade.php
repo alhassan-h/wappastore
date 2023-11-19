@@ -96,49 +96,38 @@
                             </div>--}}
                             
                             <div class="input-group input-group-outline my-2">
-                                <label for="color" class="col-2 col-form-label pb-0 text-md-begin">{{ __('Color(s)') }}</label>
+                                <label for="color" class="col-2 col-form-label pb-0 text-md-begin">{{__('Color(s)')}}</label>
                                 <div class="col-md-6 col-sm-12">
-                                    <div class="form-switch p-0 d-flex justify-content-between">
-                                        <div class="">
-                                            <label for="category-red" class="me-2">Red</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="red" id="category-red" name="color[]" @selected(old('color') == 'red')>
+                                    <div class="p-0 d-flex justify-content-between form-control">
+                                        
+                                        @foreach(['red','black','white','blue','green','brown','pink','purple','yellow'] as $color)
+                                        <div @class(['me-1','d-flex','align-items-center','justify-content-between'])>
+                                            <label for="color-{{$color}}" class="m-0">{{ucfirst($color)}}</label>
+                                            <input class="ms-auto" type="checkbox" value="{{$color}}" id="color-{{$color}}" name="color[]" @checked(old('color') !== null && in_array($color, old('color')))>
                                         </div>
-                                        <div class="mx-3">
-                                            <label for="color-black" class="me-2">Black</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="black" id="color-black" name="color[]" @selected(old('color') == 'black')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-white" class="me-2">White</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="white" id="color-white" name="color[]" @selected(old('color') == 'white')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-blue" class="me-2">Blue</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="blue" id="color-blue" name="color[]" @selected(old('color') == 'blue')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-green" class="me-2">Green</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="green" id="color-green" name="color[]" @selected(old('color') == 'green')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-brown" class="me-2">Brown</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="brown" id="color-brown" name="color[]" @selected(old('color') == 'brown')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-pink" class="me-2">Pink</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="pink" id="color-pink" name="color[]" @selected(old('color') == 'pink')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-purple" class="me-2">Purple</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="purple" id="color-purple" name="color[]" @selected(old('color') == 'purple')>
-                                        </div>
-                                        <div class="">
-                                            <label for="color-yellow" class="me-2">Yellow</label>
-                                            <input class="form-check-input ms-auto" type="checkbox" value="yellow" id="color-yellow" name="color[]" @selected(old('color') == 'yellow')>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     @error('color')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                    <span class="invalid-feedback d-flex" role="alert">
+                                            <strong>{{$message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="input-group input-group-outline my-2">
+                                <label for="size" class="col-2 col-form-label pb-0 text-md-begin">{{__('Size')}}</label>
+                                <div class="col-md-6 col-sm-12">
+                                    <select id="size" class="form-control @error('size') is-invalid @enderror" name="size">
+                                        <option value="">--Select size--</option>
+                                        <option value="1" @selected(old('size') == '1')>0 - 2 Years</option>
+                                        <option value="2" @selected(old('size') == '2')>2 - 8 Years</option>
+                                        <option value="3" @selected(old('size') == '3')>8 - 12 Years</option>
+                                        <option value="4" @selected(old('size') == '4')>12 - 16 Years</option>
+                                    </select>
+                                    @error('size')
+                                        <span class="invalid-feedback d-flex" role="alert">
+                                            <strong>{{$message }}</strong>
                                         </span>
                                     @enderror
                                 </div>

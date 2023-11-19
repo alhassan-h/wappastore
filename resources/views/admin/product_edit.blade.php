@@ -76,7 +76,7 @@
                                         <option value="boys" @selected(old('gender') == 'boys' || $product->gender == 'boys')>Boys</option>
                                         <option value="girls" @selected(old('gender') == 'girls' || $product->gender == 'girls')>Girls</option>
                                     </select>
-                                    @error('size')
+                                    @error('gender')
                                         <span class="invalid-feedback d-flex" role="alert">
                                             <strong>{{$message }}</strong>
                                         </span>
@@ -104,6 +104,24 @@
                                 </div>
                             </div>
                             
+                            <div class="input-group input-group-outline my-2">
+                                <label for="size" class="col-2 col-form-label pb-0 text-md-begin">{{__('Size')}}</label>
+                                <div class="col-md-6 col-sm-12">
+                                    <select id="size" class="form-control @error('size') is-invalid @enderror" name="size">
+                                        <option value="">--Select size--</option>
+                                        <option value="1" @selected(old('size') == '1' || $product->size == '0 - 2')>0 - 2 Years</option>
+                                        <option value="2" @selected(old('size') == '2' || $product->size == '2 - 8')>2 - 8 Years</option>
+                                        <option value="3" @selected(old('size') == '3' || $product->size == '8 - 12')>8 - 12 Years</option>
+                                        <option value="4" @selected(old('size') == '4' || $product->size == '12 - 16')>12 - 16 Years</option>
+                                    </select>
+                                    @error('size')
+                                        <span class="invalid-feedback d-flex" role="alert">
+                                            <strong>{{$message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="input-group input-group-outline my-2">
                                 <label for="quantity" class="col-2 col-form-label pb-0 text-md-begin">{{__('Quantity')}}</label>
                                 <div class="col-md-6 col-sm-12">

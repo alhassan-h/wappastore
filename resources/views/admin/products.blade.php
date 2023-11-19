@@ -100,6 +100,10 @@
                                 <span class="text-sm">{{ucwords($product->quantity)}}</span>
                             </div>
                             <div class="mb-0 d-flex justify-content-between align-items-center col-12">
+                                <p class="mb-0 font-weight-bold text-md">Size:</p>
+                                <span class="text-sm">{{ucwords($product->size)}} years</span>
+                            </div>
+                            <div class="mb-0 d-flex justify-content-between align-items-center col-12">
                                 <p class="mb-0 font-weight-bold text-md">Price:</p>
                                 <span class="text-sm">&#8358;{{number_format($product->price)}}</span>
                             </div>

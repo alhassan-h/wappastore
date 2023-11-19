@@ -130,6 +130,7 @@ class AdminController extends Controller
          'color' => 'required',
          'quantity' => 'required|gt:0',
          'price' => 'required',
+         'size' => 'required',
          'product-image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         
@@ -205,8 +206,9 @@ class AdminController extends Controller
          'category' => 'required|in:shirts,trousers',
          'gender' => 'required|in:boys,girls',
          'color' => 'required',
-         'quantity' => 'required|gt:0|lte:15',
+         'quantity' => 'required',
          'price' => 'required',
+         'size' => 'required',
          'product-image' => 'sometimes|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
